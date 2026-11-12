@@ -217,7 +217,7 @@ flowchart TD
 
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
-| A1 | Quá 24 giờ | Chỉ cho thêm ghi chú bổ sung, không sửa nội dung đã ký |
+| A1 | Quá 24 giờ | Chỉ cho thêm ghi chú bổ sung, không sửa nội dung đã ký; App bệnh nhân vẫn hiện "Đã cập nhật" và gửi MSG-51 |
 
 **Luồng lỗi**
 
