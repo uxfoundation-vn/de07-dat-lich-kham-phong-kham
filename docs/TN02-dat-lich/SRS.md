@@ -73,6 +73,11 @@ stateDiagram-v2
 
 ### UC-05 Chọn chuyên khoa, bác sĩ
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Bệnh nhân đã đăng nhập |
+| Hậu điều kiện | Đã chọn chuyên khoa hoặc bác sĩ; chuyển sang chọn ngày giờ (UC-06) |
+
 ```mermaid
 flowchart TD
   A["SCR-B01 → Đặt lịch khám"] --> B["SCR-B02"]
@@ -287,6 +292,17 @@ sequenceDiagram
     S->>S: Thả chỗ, khung 9:00 mở lại
   end
 ```
+
+**Map lỗi → thông báo** `[giả định]`
+
+| **Nhóm lỗi** | **Message** |
+| --- | --- |
+| Khung giờ vừa hết chỗ khi giữ chỗ | MSG-11 |
+| Hết thời gian giữ chỗ | MSG-12 |
+| Vượt 5 người khám mỗi tài khoản | MSG-13 |
+| Người khám vượt giới hạn lịch | MSG-14 |
+| Ảnh sai định dạng hoặc quá dung lượng | MSG-17 |
+| Mất mạng, lỗi máy chủ | MSG-16 |
 
 ## 9. Danh sách thông báo
 

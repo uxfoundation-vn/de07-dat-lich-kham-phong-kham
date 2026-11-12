@@ -123,6 +123,11 @@ flowchart TD
 
 ### UC-02 Thêm ngoại lệ
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Quản trị phòng khám đã đăng nhập; bác sĩ đã có lịch làm việc |
+| Hậu điều kiện | Ngoại lệ được lưu; khung trống được gỡ hoặc thêm; khung đã có lịch chuyển `KHOA`, lịch hẹn vào danh sách `CAN_XU_LY` (BR-09) |
+
 ```mermaid
 flowchart TD
   A["SCR-A01 → Ngoại lệ"] --> B{"Loại BR-08"}
@@ -141,6 +146,11 @@ flowchart TD
 ```
 
 ### UC-03 Khoá, mở khung
+
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Khoá: khung `MO` chưa có lịch hẹn. Mở: khung `KHOA` không có lịch hẹn |
+| Hậu điều kiện | Khung `KHOA` không ai đặt được, hoặc về `MO` |
 
 | **Bước** | **Actor** | **Mô tả** |
 | --- | --- | --- |
@@ -230,6 +240,16 @@ sequenceDiagram
   S->>B: SlotEvent, làm mới khung
   S->>L: SlotEvent, cảnh báo nếu có lịch cần xử lý
 ```
+
+**Map lỗi → thông báo** `[giả định]`
+
+| **Nhóm lỗi** | **Message** |
+| --- | --- |
+| Ca trùng với ca khác của bác sĩ hoặc phòng | MSG-01 |
+| Thay đổi ảnh hưởng lịch hẹn đã đặt | MSG-02 |
+| Khoá khung đã có lịch hẹn | MSG-05 |
+| Nghỉ đột xuất khi đã có bệnh nhân check-in | MSG-06 |
+| Lưu lịch thất bại | Thông báo lỗi chung của app (ngoài bộ MSG của SRS này), cho thử lại; giữ nội dung đang sửa |
 
 ## 9. Danh sách thông báo
 

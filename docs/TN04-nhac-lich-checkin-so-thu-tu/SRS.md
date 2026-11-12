@@ -82,6 +82,11 @@ stateDiagram-v2
 
 ### UC-12 Nhắc lịch
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Lịch `DA_XAC_NHAN` |
+| Hậu điều kiện | Nhắc được gửi ở mốc 24 giờ và 2 giờ; lịch không đổi trạng thái (BR-41) |
+
 ```mermaid
 flowchart TD
   A["Lịch DA_XAC_NHAN"] --> B["Lên lịch nhắc BR-39"]
@@ -159,6 +164,11 @@ flowchart TD
 
 ### UC-14 Thêm khách vãng lai
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Lễ tân đã đăng nhập; bác sĩ có ca trong buổi |
+| Hậu điều kiện | Thành công: lịch kênh `QUAY` ở `DA_CHECK_IN`, có số `W{nnn}`. Thất bại: không tạo lịch (MSG-40) |
+
 ```mermaid
 flowchart TD
   A["SCR-L02 → Khách vãng lai"] --> B["Tìm theo số điện thoại: có tài khoản, người khám?"]
@@ -212,6 +222,11 @@ flowchart TD
 | A3 | Bệnh nhân đến sau khi lịch đã `KHONG_DEN` | Kiosk, App báo MSG-35; lễ tân tạo lượt vãng lai (UC-14), liên kết với hồ sơ người khám sẵn có |
 
 ### UC-16 Tự động chuyển Không đến
+
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Lịch `DA_XAC_NHAN` đã quá `start_at + 30 phút` |
+| Hậu điều kiện | Lịch `KHONG_DEN`; chỗ trả về khung; huỷ các lần nhắc còn lại (BR-47) |
 
 | **Bước** | **Actor** | **Mô tả** |
 | --- | --- | --- |
@@ -305,6 +320,18 @@ sequenceDiagram
   S->>U: Push Mời vào phòng 3
   S-->>D: A012, hồ sơ, TN05
 ```
+
+**Map lỗi → thông báo** `[giả định]`
+
+| **Nhóm lỗi** | **Message** |
+| --- | --- |
+| QR không hợp lệ hoặc là QR cũ | MSG-33 |
+| Check-in quá sớm | MSG-34 |
+| Check-in quá giờ | MSG-35 |
+| Kiosk mất kết nối | MSG-38 |
+| Buổi đã hết chỗ khi thêm vãng lai | MSG-39 |
+| Đạt giới hạn vượt sức chứa | MSG-40 |
+| Gọi số khi hàng đợi trống | MSG-41 |
 
 ## 9. Danh sách thông báo
 

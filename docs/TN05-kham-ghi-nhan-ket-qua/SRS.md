@@ -162,6 +162,11 @@ flowchart TD
 
 ### UC-19 Sửa kết quả sau khi kết thúc
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Lịch `HOAN_THANH`; người sửa là bác sĩ của phiên khám |
+| Hậu điều kiện | Trong 24 giờ: lưu phiên bản mới, giữ bản cũ, bệnh nhân được báo. Quá 24 giờ: chỉ thêm ghi chú bổ sung (BR-66) |
+
 ```mermaid
 flowchart TD
   A["SCR-D01 → Lượt đã khám hôm nay → chọn"] --> B{"Trong 24 giờ BR-66?"}
@@ -292,6 +297,17 @@ sequenceDiagram
   B->>S: ResultGet sau xác thực lại
   S-->>B: Kết quả khám
 ```
+
+**Map lỗi → thông báo** `[giả định]`
+
+| **Nhóm lỗi** | **Message** |
+| --- | --- |
+| Bắt đầu khám khi đang có phiên khác | MSG-45 |
+| Kết thúc khi thiếu chẩn đoán | MSG-46 |
+| Kết thúc khi còn cảnh báo đơn thuốc chưa xem | MSG-47 |
+| Mất kết nối | MSG-49 |
+| PIN ký sai | MSG-50 |
+| Không có quyền xem kết quả | MSG-52 |
 
 ## 9. Danh sách thông báo
 

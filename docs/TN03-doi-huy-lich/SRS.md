@@ -113,6 +113,11 @@ flowchart TD
 
 ### UC-09 Bệnh nhân huỷ lịch
 
+| **Mục** | **Nội dung** |
+| --- | --- |
+| Tiền điều kiện | Lịch `DA_XAC_NHAN` thuộc tài khoản đang đăng nhập |
+| Hậu điều kiện | Thành công: lịch `DA_HUY`, chỗ trả về khung, huỷ các lần nhắc. Thất bại: lịch giữ nguyên |
+
 ```mermaid
 flowchart TD
   A["SCR-B05 → chọn lịch → Huỷ lịch"] --> B{"Thoả BR-27?"}
@@ -268,6 +273,16 @@ sequenceDiagram
     App->>U: MSG-12, lịch cũ còn nguyên
   end
 ```
+
+**Map lỗi → thông báo** `[giả định]`
+
+| **Nhóm lỗi** | **Message** |
+| --- | --- |
+| Đổi, huỷ khi còn dưới 2 giờ | MSG-21 |
+| Vượt số lần đổi lịch | MSG-22 |
+| Giữ chỗ khung mới thất bại hoặc hết hạn | MSG-24, lịch cũ giữ nguyên |
+| Không tìm thấy lịch hẹn | MSG-27 |
+| Mất mạng, lỗi máy chủ | Thông báo lỗi chung của app (ngoài bộ MSG của SRS này), cho thử lại |
 
 ## 9. Danh sách thông báo
 
