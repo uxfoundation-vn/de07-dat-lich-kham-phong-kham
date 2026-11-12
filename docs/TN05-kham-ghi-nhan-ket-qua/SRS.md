@@ -93,6 +93,30 @@ flowchart TD
   E -->|Không có mặt| I["Gọi lại, bỏ lượt, TN04"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bác sĩ | Mở **SCR-D01** Hàng đợi của tôi |
+| 2 | Hệ thống | Hiện danh sách: số, tên, tuổi, lý do rút gọn, cờ tái khám, cờ có kết quả cận lâm sàng |
+| 3 | Bác sĩ | Bấm Gọi người tiếp theo (SRS TN04) |
+| 4 | Hệ thống | Lịch `DA_GOI`; hồ sơ người được gọi mở sẵn |
+| 5 | Bác sĩ | Bệnh nhân vào phòng, bấm Bắt đầu khám |
+| 6 | Hệ thống | Lịch `DANG_KHAM`, mở **SCR-D02**, ghi `started_at` |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Chạm một người trong hàng đợi | Xem trước lý do, ảnh, tiền sử (BR-56), sinh hiệu nếu điều dưỡng đã ghi |
+| A2 | Người được gọi không có mặt | Gọi lại hoặc bỏ lượt (SRS TN04) |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Bác sĩ đang có phiên `DANG_KHAM` khác | MSG-45: phải kết thúc hoặc chuyển phiên hiện tại sang chờ cận lâm sàng trước |
+
 ### UC-18 Ghi nhận khám, chỉ định, kê đơn, kết thúc
 
 | **Mục** | **Nội dung** |
@@ -151,7 +175,7 @@ flowchart TD
 | A3 | Không kê đơn | Bỏ qua bước 4 |
 | A4 | Bệnh nhân cần chuyển khoa | Ghi chẩn đoán sơ bộ, lời dặn "Chuyển khám {khoa}", kết thúc; lễ tân đặt lịch khoa khác (TN02) |
 | A5 | Bệnh nhân rời đi giữa chừng | Bác sĩ kết thúc với ghi chú "Bệnh nhân bỏ về", chẩn đoán sơ bộ |
-| A6 | Hết ngày mà lịch còn `CHO_CAN_LAM_SANG`: kết quả chưa về hoặc bệnh nhân không quay lại | Lịch giữ `CHO_CAN_LAM_SANG` tối đa 7 ngày. Khi đủ kết quả và bệnh nhân quay lại, lễ tân check-in lại cho bác sĩ đã chỉ định, không cần đặt lịch mới. Quá 7 ngày, bác sĩ kết thúc với chẩn đoán sơ bộ và ghi chú "Chưa quay lại sau cận lâm sàng" `[giả định]` |
+| A6 | Hết ngày mà lịch còn `CHO_CAN_LAM_SANG`: kết quả chưa về hoặc bệnh nhân không quay lại | Lịch giữ `CHO_CAN_LAM_SANG` tối đa 7 ngày. Khi đủ kết quả và bệnh nhân quay lại, lễ tân check-in lại cho bác sĩ đã chỉ định, không cần đặt lịch mới. Quá 7 ngày, bác sĩ kết thúc với chẩn đoán sơ bộ và ghi chú "Chưa quay lại sau cận lâm sàng" |
 
 **Luồng lỗi**
 
@@ -178,6 +202,29 @@ flowchart TD
   C --> G
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bác sĩ | **SCR-D01** → Lượt đã khám hôm nay → chọn một lượt |
+| 2 | Hệ thống | Kiểm tra còn trong 24 giờ (BR-66) |
+| 3 | Bác sĩ | Sửa kết quả, nhập lý do sửa (bắt buộc) |
+| 4 | Bác sĩ | Nhập PIN ký |
+| 5 | Hệ thống | Lưu phiên bản mới, giữ phiên bản cũ |
+| 6 | Hệ thống | App bệnh nhân hiện "Đã cập nhật"; gửi MSG-51 |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Quá 24 giờ | Chỉ cho thêm ghi chú bổ sung, không sửa nội dung đã ký |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | PIN ký sai | MSG-50, không lưu |
+
 ### UC-20 Bệnh nhân xem kết quả và đặt tái khám
 
 | **Mục** | **Nội dung** |
@@ -201,6 +248,31 @@ flowchart TD
   K["Trước ngày gợi ý 3 ngày, chưa đặt"] --> L["Nhắc MSG-53"]
   L --> H
 ```
+
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bệnh nhân | Mở từ thông báo MSG-48, hoặc Lịch hẹn → Đã qua |
+| 2 | Hệ thống | Kiểm tra quyền xem (BR-67) |
+| 3 | Bệnh nhân | Xác thực lại bằng sinh trắc hoặc PIN App |
+| 4 | Hệ thống | Mở **SCR-B07**: chẩn đoán, lời dặn, sinh hiệu, kết quả cận lâm sàng, đơn thuốc dạng lịch uống |
+| 5 | Bệnh nhân | Có hẹn tái khám → bấm Đặt lịch tái khám |
+| 6 | Hệ thống | Mở **SCR-B03** với đúng bác sĩ và ngày gợi ý (SRS TN02) |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Không có hẹn tái khám | Kết thúc ở bước 4 |
+| A2 | Còn 3 ngày tới ngày gợi ý mà chưa đặt | Gửi nhắc MSG-53, chạm mở bước 5 |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Không có quyền xem | MSG-52 |
+| E2 | Xác thực lại thất bại | Không mở kết quả |
 
 ## 6. Điểm vào
 
@@ -298,7 +370,7 @@ sequenceDiagram
   S-->>B: Kết quả khám
 ```
 
-**Map lỗi → thông báo** `[giả định]`
+**Map lỗi → thông báo**
 
 | **Nhóm lỗi** | **Message** |
 | --- | --- |

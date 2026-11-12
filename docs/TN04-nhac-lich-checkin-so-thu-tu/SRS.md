@@ -105,6 +105,30 @@ flowchart TD
   M["Lịch đổi hoặc huỷ"] --> N["Huỷ nhắc cũ, lên nhắc mới nếu còn"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Hệ thống | Lịch `DA_XAC_NHAN` → lên lịch nhắc (BR-39) |
+| 2 | Hệ thống | Đến mốc 24 giờ: gửi push (BR-40) kèm nút Xác nhận sẽ đến, Đổi, Huỷ |
+| 3 | Bệnh nhân | Bấm Xác nhận sẽ đến |
+| 4 | Hệ thống | Ghi `confirmed_attendance` (BR-41) |
+| 5 | Hệ thống | Đến mốc 2 giờ: gửi nhắc kèm địa chỉ, phòng, quy tắc đến trễ (MSG-32) |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Bấm Đổi hoặc Huỷ từ tin nhắc | Chuyển sang luồng đổi, huỷ (SRS TN03) |
+| A2 | Lịch được đổi hoặc huỷ | Huỷ các lần nhắc cũ, lên nhắc mới nếu lịch còn hiệu lực |
+| A3 | Đến mốc nhắc mà lịch không còn `DA_XAC_NHAN` | Bỏ lần nhắc đó |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Push không gửi được, hoặc người khám dùng số điện thoại khác | Gửi SMS thay thế |
+
 ### UC-13 Check-in
 
 | **Mục** | **Nội dung** |
@@ -187,6 +211,29 @@ flowchart TD
   M --> N["In phiếu số, ước tính chờ"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Lễ tân | **SCR-L02** → Khách vãng lai; tìm theo số điện thoại |
+| 2 | Lễ tân | Chọn người khám có sẵn, hoặc nhập họ tên, năm sinh, số điện thoại (BR-49) |
+| 3 | Lễ tân | Chọn chuyên khoa hoặc bác sĩ |
+| 4 | Hệ thống | Hiện chỗ trống còn lại trong buổi; còn chỗ (BR-48) → tạo lịch kênh `QUAY` vào khung gần nhất |
+| 5 | Hệ thống | Check-in ngay: cấp số `W{nnn}`, đặt `priority_time` (BR-45) |
+| 6 | Hệ thống | In phiếu số kèm ước tính thời gian chờ |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Buổi hết chỗ nhưng vượt sức chứa dưới 3 người | MSG-39 báo chờ lâu; lễ tân xác nhận → lịch `VUOT_SUC_CHUA`, rồi bước 5 |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Đã đạt giới hạn vượt sức chứa của buổi | MSG-40, gợi ý bác sĩ khác hoặc đặt ngày khác; không tạo lịch |
+
 ### UC-15 Hàng đợi và gọi số
 
 | **Mục** | **Nội dung** |
@@ -213,13 +260,32 @@ flowchart TD
   O -->|Có| P["Push Sắp tới lượt BR-51"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bác sĩ, điều dưỡng | Bấm Gọi người tiếp theo (SRS TN05) |
+| 2 | Hệ thống | Chọn người theo BR-46 |
+| 3 | Hệ thống | Lịch `DA_GOI`: màn gọi số, âm báo, push (BR-52) |
+| 4 | Bệnh nhân | Vào phòng |
+| 5 | Bác sĩ | Bấm Bắt đầu khám → lịch `DANG_KHAM` (SRS TN05) |
+| 6 | Hệ thống | Cập nhật ước tính chờ cho mọi người (BR-50); ai còn 2 người phía trước nhận push "Sắp tới lượt" (BR-51) |
+
 **Luồng thay thế**
 
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
-| A1 | Hết giờ làm của bác sĩ mà còn người `DA_CHECK_IN` | Bác sĩ khám hết hàng đợi nếu được. Không được thì lễ tân đổi lịch hộ sang ngày gần nhất, không tính lượt đổi và không áp dụng hạn 2 giờ (TN03); bệnh nhân nhận thông báo kèm lời xin lỗi `[giả định]` |
+| A1 | Hết giờ làm của bác sĩ mà còn người `DA_CHECK_IN` | Bác sĩ khám hết hàng đợi nếu được. Không được thì lễ tân đổi lịch hộ sang ngày gần nhất, không tính lượt đổi và không áp dụng hạn 2 giờ (TN03); bệnh nhân nhận thông báo kèm lời xin lỗi |
 | A2 | Lịch `BO_VE` tới hết ngày không được xếp lại | Giữ `BO_VE`, kết thúc; thống kê cùng nhóm với `KHONG_DEN` |
 | A3 | Bệnh nhân đến sau khi lịch đã `KHONG_DEN` | Kiosk, App báo MSG-35; lễ tân tạo lượt vãng lai (UC-14), liên kết với hồ sơ người khám sẵn có |
+| A4 | Bệnh nhân chưa vào sau 2 phút | Gọi lại, tối đa 3 lần; hết 3 lần → lịch `BO_VE`, gọi người tiếp theo |
+| A5 | Người `BO_VE` quay lại quầy | Lễ tân bấm Xếp lại (BR-53): lịch về `DA_CHECK_IN`, `priority_time` = bây giờ |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Hàng đợi trống | MSG-41 |
 
 ### UC-16 Tự động chuyển Không đến
 
@@ -227,6 +293,8 @@ flowchart TD
 | --- | --- |
 | Tiền điều kiện | Lịch `DA_XAC_NHAN` đã quá `start_at + 30 phút` |
 | Hậu điều kiện | Lịch `KHONG_DEN`; chỗ trả về khung; huỷ các lần nhắc còn lại (BR-47) |
+
+**Luồng chính**
 
 | **Bước** | **Actor** | **Mô tả** |
 | --- | --- | --- |
@@ -321,7 +389,7 @@ sequenceDiagram
   S-->>D: A012, hồ sơ, TN05
 ```
 
-**Map lỗi → thông báo** `[giả định]`
+**Map lỗi → thông báo**
 
 | **Nhóm lỗi** | **Message** |
 | --- | --- |
@@ -362,5 +430,6 @@ Bản EN: `[chờ bổ sung]`.
 | Tin cậy | Nhắc lịch gửi đúng giờ ± 2 phút; không nhắc lịch đã đổi, huỷ; màn gọi số tự kết nối lại và lấy đủ trạng thái |
 | Riêng tư | Màn gọi số không hiện tên (BR-54); SMS không chứa lý do khám; QR không chứa thông tin cá nhân |
 | Công bằng | Ghi nhật ký mọi lần gọi, gọi lại, xếp lại để đối chiếu khi có khiếu nại |
+| Log / audit | Mỗi lần nhắc (kênh, kết quả gửi); mỗi lần check-in (qua App, kiosk hay quầy; người thao tác); mỗi lần gọi số, gọi lại, bỏ lượt, xếp lại; mỗi lần tự chuyển Không đến |
 | Tracking | Nhắc (kênh, mở, xác nhận), check-in (kênh, sớm, trễ), vãng lai (có chỗ, vượt), thời gian chờ, gọi lại, bỏ lượt, không đến |
 | Accessibility | Màn gọi số chữ lớn, tương phản cao, có âm báo và đọc số; App rung và thông báo khi được gọi; quầy hỗ trợ người không dùng điện thoại |

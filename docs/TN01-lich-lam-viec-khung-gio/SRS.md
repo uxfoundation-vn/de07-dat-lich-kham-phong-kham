@@ -145,12 +145,37 @@ flowchart TD
   J --> L["Khoá khung có lịch BR-09, lưu"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Quản trị | **SCR-A01** → Ngoại lệ, chọn loại (BR-08): Nghỉ bác sĩ |
+| 2 | Quản trị | Chọn bác sĩ, ngày, cả ngày hoặc ca; nhập lý do |
+| 3 | Hệ thống | Tính các khung bị ảnh hưởng |
+| 4 | Hệ thống | Không có lịch hẹn → xoá khung, lưu ngoại lệ |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Loại Nghỉ phòng khám | Chọn ngày, lý do; áp dụng cho mọi bác sĩ, xử lý như bước 3–4 |
+| A2 | Loại Ca bổ sung | Chọn bác sĩ, ngày, giờ, phòng, thời lượng, sức chứa → lưu, sinh khung mới |
+| A3 | Khung bị ảnh hưởng đã có lịch hẹn | MSG-02; khoá các khung có lịch (BR-09), lịch hẹn vào `CAN_XU_LY`, rồi lưu |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Ca bổ sung chồng ca hoặc phòng | MSG-01, không lưu |
+
 ### UC-03 Khoá, mở khung
 
 | **Mục** | **Nội dung** |
 | --- | --- |
 | Tiền điều kiện | Khoá: khung `MO` chưa có lịch hẹn. Mở: khung `KHOA` không có lịch hẹn |
 | Hậu điều kiện | Khung `KHOA` không ai đặt được, hoặc về `MO` |
+
+**Luồng chính**
 
 | **Bước** | **Actor** | **Mô tả** |
 | --- | --- | --- |
@@ -179,6 +204,30 @@ flowchart TD
   G --> I["Tạo lô xử lý, mở UC huỷ, chuyển hàng loạt TN03"]
   G --> J["Cảnh báo trên SCR-L01, SCR-D01"]
 ```
+
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Quản trị | Mở **SCR-A02** Nghỉ đột xuất |
+| 2 | Quản trị | Chọn bác sĩ, ngày, ca hoặc cả ngày |
+| 3 | Hệ thống | Hiện lịch hẹn bị ảnh hưởng: số lượng, giờ, đã check-in hay chưa |
+| 4 | Quản trị | Nhập lý do, xác nhận ở MSG-07 |
+| 5 | Hệ thống | Gọi \[SuddenLeaveCreate\] (BR-12): khoá mọi khung của ca |
+| 6 | Hệ thống | Tạo lô xử lý cho lễ tân huỷ, chuyển hàng loạt (SRS TN03) |
+| 7 | Hệ thống | Hiện cảnh báo trên **SCR-L01**, **SCR-D01** |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Có bệnh nhân đã check-in | MSG-06: lễ tân cần báo trực tiếp cho những người này; vẫn cho xác nhận tiếp |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Tạo nghỉ đột xuất thất bại | Báo lỗi, không khoá khung nào, cho thử lại |
 
 ## 6. Điểm vào
 
@@ -241,7 +290,7 @@ sequenceDiagram
   S->>L: SlotEvent, cảnh báo nếu có lịch cần xử lý
 ```
 
-**Map lỗi → thông báo** `[giả định]`
+**Map lỗi → thông báo**
 
 | **Nhóm lỗi** | **Message** |
 | --- | --- |
@@ -275,4 +324,5 @@ Bản EN: `[chờ bổ sung]`.
 | Thời gian | Mọi giờ theo múi giờ phòng khám (Asia/Ho_Chi_Minh) |
 | Audit | Ghi nhật ký sửa ca, ngoại lệ, khoá khung, nghỉ đột xuất: ai, lúc nào, trước, sau |
 | Giám sát | Cảnh báo khi một ngày trong 14 ngày tới có 0 khung cho chuyên khoa đang hoạt động |
+| Bảo mật | Chỉ quản trị phòng khám sửa lịch làm việc, ngoại lệ, khoá khung; mọi thao tác yêu cầu đăng nhập và phân quyền theo vai trò |
 | Accessibility | Lưới dùng được bằng bàn phím; trạng thái khung có chữ, không chỉ màu |

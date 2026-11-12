@@ -95,6 +95,31 @@ flowchart TD
   I --> J
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bệnh nhân | **SCR-B01** → Đặt lịch khám → **SCR-B02** |
+| 2 | Bệnh nhân | Chọn cách đặt theo Chuyên khoa |
+| 3 | Hệ thống | Hiện danh sách khoa kèm ngày sớm nhất còn chỗ |
+| 4 | Bệnh nhân | Chọn một khoa |
+| 5 | Hệ thống | Mở **SCR-B03** Chọn giờ (UC-06) |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Chưa biết khám khoa nào | Chọn 1–3 triệu chứng → gợi ý 1–2 khoa và Khám tổng quát (BR-14) → bước 4 |
+| A2 | Chọn theo Bác sĩ | Danh sách bác sĩ, lọc theo khoa → hồ sơ bác sĩ → **SCR-B03** |
+| A3 | Chọn Tái khám | Danh sách bác sĩ đã khám trong 180 ngày (BR-16) → hồ sơ bác sĩ → **SCR-B03** |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Chọn Tái khám nhưng chưa có lần khám nào trong 180 ngày | MSG-09, gợi ý chọn theo chuyên khoa |
+| E2 | Không tải được danh sách khoa, bác sĩ | MSG-16, cho thử lại |
+
 ### UC-06 Chọn khung giờ và giữ chỗ
 
 | **Mục** | **Nội dung** |
@@ -217,7 +242,7 @@ flowchart TD
 | 3 | Lịch hẹn sắp tới | Card | Lịch gần nhất: bác sĩ, ngày giờ, trạng thái; chạm → **SCR-B06**. Không có lịch → ẩn card |
 | 4 | Tái khám | Card | Chỉ hiện khi có lời hẹn tái khám chưa đặt (TN05, BR-64); chạm → UC-05 với bác sĩ và ngày gợi ý điền sẵn |
 | 5 | Kết quả khám gần đây | Dòng liên kết | Mở **SCR-B07** (TN05), cần xác thực lại |
-| 6 | Màn trống | Empty state | Tài khoản chưa có lịch nào: hình minh hoạ, nút "Đặt lịch khám" `[giả định]` |
+| 6 | Màn trống | Empty state | Tài khoản chưa có lịch nào: hình minh hoạ, nút "Đặt lịch khám" |
 
 ### SCR-B02 Chọn chuyên khoa, bác sĩ
 
@@ -293,7 +318,7 @@ sequenceDiagram
   end
 ```
 
-**Map lỗi → thông báo** `[giả định]`
+**Map lỗi → thông báo**
 
 | **Nhóm lỗi** | **Message** |
 | --- | --- |
@@ -331,5 +356,6 @@ Bản EN: `[chờ bổ sung]`.
 | Nhất quán | Không bao giờ vượt `online_quota`; giữ chỗ và xác nhận là thao tác nguyên tử |
 | Bảo mật dữ liệu sức khoẻ | Lý do khám, ảnh mã hoá khi lưu và truyền; chỉ lễ tân, bác sĩ của lịch hẹn xem được; không đưa vào thông báo đẩy |
 | QR | Ký số, không chứa thông tin cá nhân, chỉ chứa mã lịch hẹn và chữ ký |
+| Log / audit | Mỗi lần giữ chỗ, nhả chỗ, xác nhận lịch: tài khoản, người khám, khung giờ, thời điểm; không ghi lý do khám vào log |
 | Tracking | Đường vào đặt lịch (khoa, triệu chứng, bác sĩ, tái khám), giữ chỗ, va chạm, hết giữ chỗ, xác nhận, thời gian đặt |
 | Accessibility | Đồng hồ giữ chỗ được trình đọc màn hình thông báo khi còn 60 giây; trạng thái khung có chữ; hỗ trợ cỡ chữ lớn cho người lớn tuổi |

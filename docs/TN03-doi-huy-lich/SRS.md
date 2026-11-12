@@ -131,6 +131,31 @@ flowchart TD
   H --> I["MSG-26, push, SMS"]
 ```
 
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Bệnh nhân | **SCR-B05** → chọn lịch → Huỷ lịch |
+| 2 | Hệ thống | Kiểm tra BR-27 (còn ≥ 2 giờ trước giờ khám) |
+| 3 | Bệnh nhân | Chọn lý do (BR-32) |
+| 4 | Hệ thống | MSG-25 hỏi xác nhận |
+| 5 | Bệnh nhân | Chọn Huỷ |
+| 6 | Hệ thống | Gọi \[AppointmentCancel\]: lịch `DA_HUY`, khung trả chỗ ngay |
+| 7 | Hệ thống | MSG-26; gửi push, SMS |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Chọn Giữ lịch ở MSG-25 | Lịch không đổi |
+| A2 | Không thoả BR-27 | Ẩn nút Huỷ, hiện hotline và nút "Báo không đến được" (BR-33); bấm → lịch `DA_HUY` với lý do "Báo muộn" |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Huỷ thất bại (mất mạng, lịch vừa đổi trạng thái) | Báo lỗi, tải lại trạng thái lịch; lịch giữ nguyên |
+
 ### UC-10 Lễ tân đổi, huỷ hộ
 
 | **Mục** | **Nội dung** |
@@ -155,6 +180,30 @@ flowchart TD
   I --> L["Thông báo bệnh nhân BR-38"]
   K --> L
 ```
+
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Lễ tân | Mở **SCR-L03** Đổi lịch hộ; tìm theo số điện thoại, tên, mã lịch |
+| 2 | Lễ tân | Chọn lịch, xem lịch sử thay đổi |
+| 3 | Lễ tân | Chọn Đổi, chọn khung mới (dùng được quota quầy, BR-29) |
+| 4 | Lễ tân | Ghi kênh yêu cầu (BR-34), xác nhận |
+| 5 | Hệ thống | Cập nhật lịch; lịch sử ghi "Lễ tân {tên} qua {kênh}" |
+| 6 | Hệ thống | Thông báo bệnh nhân (BR-38) |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Chọn Huỷ | Nhập lý do, kênh yêu cầu → lịch `DA_HUY`, `cancelled_by` = `LE_TAN` → thông báo bệnh nhân |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Không tìm thấy lịch | MSG-27 |
+| E2 | Lịch đã đổi 2 lần | MSG-22; có thể huỷ và đặt lịch mới |
 
 ### UC-11 Xử lý hàng loạt lịch bị ảnh hưởng
 
@@ -187,6 +236,30 @@ flowchart TD
   O -->|Có| P["Lô DA_DONG"]
   O -->|Không| B
 ```
+
+**Luồng chính**
+
+| **Bước** | **Actor** | **Mô tả** |
+| --- | --- | --- |
+| 1 | Lễ tân | Mở lô từ banner trên **SCR-L01**: lý do, bác sĩ, ngày, danh sách lịch |
+| 2 | Lễ tân | Chọn bác sĩ thay thế cùng khoa |
+| 3 | Hệ thống | Gọi \[BulkReassign\]: ghép cùng giờ (BR-36); báo số lịch đã chuyển và số lịch không ghép được |
+| 4 | Hệ thống | Gửi MSG-28 cho các lịch đã chuyển |
+| 5 | Lễ tân | Xử lý phần còn lại: đổi giờ hộ từng lịch (UC-10) hoặc huỷ hàng loạt |
+| 6 | Hệ thống | Mọi lịch đã xử lý và đã gọi điện khi cần → lô `DA_DONG` |
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Không có bác sĩ thay thế | Chọn lời nhắn mẫu, sửa nếu cần → \[BulkCancel\] (BR-37), gửi MSG-29 kèm gợi ý đặt lại |
+| A2 | Có lịch còn dưới 4 giờ tới giờ khám | Gắn cờ `CAN_GOI_DIEN`; lễ tân gọi rồi đánh dấu đã gọi |
+
+**Luồng lỗi**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| E1 | Còn lịch chưa xử lý hoặc chưa gọi | Lô giữ `MO` hoặc `DANG_XU_LY`; banner còn trên **SCR-L01** (MSG-30) |
 
 ## 6. Điểm vào
 
@@ -274,7 +347,7 @@ sequenceDiagram
   end
 ```
 
-**Map lỗi → thông báo** `[giả định]`
+**Map lỗi → thông báo**
 
 | **Nhóm lỗi** | **Message** |
 | --- | --- |
