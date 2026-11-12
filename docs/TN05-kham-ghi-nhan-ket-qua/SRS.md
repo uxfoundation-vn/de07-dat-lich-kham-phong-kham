@@ -55,6 +55,7 @@ stateDiagram-v2
   DA_GOI --> DANG_KHAM : Bác sĩ bấm Bắt đầu khám
   DANG_KHAM --> CHO_CAN_LAM_SANG : Chỉ định cận lâm sàng
   CHO_CAN_LAM_SANG --> DA_CHECK_IN : Đủ kết quả, ưu tiên gọi lại
+  CHO_CAN_LAM_SANG --> HOAN_THANH : Quá 7 ngày không quay lại, bác sĩ kết thúc
   DA_CHECK_IN --> DA_GOI : Gọi lại, TN04
   DANG_KHAM --> HOAN_THANH : Kết thúc khám
   HOAN_THANH --> HOAN_THANH : Sửa trong 24 giờ, phiên bản mới
@@ -150,6 +151,7 @@ flowchart TD
 | A3 | Không kê đơn | Bỏ qua bước 4 |
 | A4 | Bệnh nhân cần chuyển khoa | Ghi chẩn đoán sơ bộ, lời dặn "Chuyển khám {khoa}", kết thúc; lễ tân đặt lịch khoa khác (TN02) |
 | A5 | Bệnh nhân rời đi giữa chừng | Bác sĩ kết thúc với ghi chú "Bệnh nhân bỏ về", chẩn đoán sơ bộ |
+| A6 | Hết ngày mà lịch còn `CHO_CAN_LAM_SANG`: kết quả chưa về hoặc bệnh nhân không quay lại | Lịch giữ `CHO_CAN_LAM_SANG` tối đa 7 ngày. Khi đủ kết quả và bệnh nhân quay lại, lễ tân check-in lại cho bác sĩ đã chỉ định, không cần đặt lịch mới. Quá 7 ngày, bác sĩ kết thúc với chẩn đoán sơ bộ và ghi chú "Chưa quay lại sau cận lâm sàng" `[giả định]` |
 
 **Luồng lỗi**
 

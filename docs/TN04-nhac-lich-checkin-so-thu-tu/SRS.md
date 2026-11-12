@@ -62,6 +62,8 @@ stateDiagram-v2
   DA_GOI --> DA_GOI : Gọi lại, tối đa 3 lần
   DA_GOI --> BO_VE : Gọi 3 lần không có mặt
   BO_VE --> DA_CHECK_IN : Lễ tân xếp lại
+  BO_VE --> [*] : Hết ngày, không xếp lại
+  DA_CHECK_IN --> [*] : Hết giờ làm, lễ tân đổi lịch hộ, TN03
   KHONG_DEN --> [*]
   DANG_KHAM --> [*]
 ```
@@ -200,6 +202,14 @@ flowchart TD
   N --> O{"Ai còn 2 người phía trước?"}
   O -->|Có| P["Push Sắp tới lượt BR-51"]
 ```
+
+**Luồng thay thế**
+
+| **Mã** | **Điều kiện** | **Xử lý** |
+| --- | --- | --- |
+| A1 | Hết giờ làm của bác sĩ mà còn người `DA_CHECK_IN` | Bác sĩ khám hết hàng đợi nếu được. Không được thì lễ tân đổi lịch hộ sang ngày gần nhất, không tính lượt đổi và không áp dụng hạn 2 giờ (TN03); bệnh nhân nhận thông báo kèm lời xin lỗi `[giả định]` |
+| A2 | Lịch `BO_VE` tới hết ngày không được xếp lại | Giữ `BO_VE`, kết thúc; thống kê cùng nhóm với `KHONG_DEN` |
+| A3 | Bệnh nhân đến sau khi lịch đã `KHONG_DEN` | Kiosk, App báo MSG-35; lễ tân tạo lượt vãng lai (UC-14), liên kết với hồ sơ người khám sẵn có |
 
 ### UC-16 Tự động chuyển Không đến
 

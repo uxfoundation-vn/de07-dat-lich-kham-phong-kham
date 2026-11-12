@@ -60,6 +60,8 @@ stateDiagram-v2
   KHOA --> MO : Mở lại khi không có lịch
   MO --> DA_QUA : Qua giờ bắt đầu
   DAY --> DA_QUA : Qua giờ bắt đầu
+  DAY_ONLINE --> DA_QUA : Qua giờ bắt đầu
+  KHOA --> DA_QUA : Qua giờ bắt đầu
   DA_QUA --> [*]
 ```
 

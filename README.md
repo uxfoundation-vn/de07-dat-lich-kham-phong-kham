@@ -27,10 +27,14 @@ stateDiagram-v2
   DA_XAC_NHAN --> DA_HUY : Bệnh nhân hoặc phòng khám huỷ, TN03
   DA_XAC_NHAN --> DA_CHECK_IN : Check-in, TN04
   DA_XAC_NHAN --> KHONG_DEN : Quá giờ 30 phút, TN04
-  DA_CHECK_IN --> DANG_KHAM : Bác sĩ gọi số, TN05
-  DA_CHECK_IN --> BO_VE : Gọi 3 lần không có mặt, TN04
+  [*] --> DA_CHECK_IN : Khách vãng lai, lễ tân tạo, TN04
+  DA_CHECK_IN --> DA_GOI : Gọi số, TN04
+  DA_GOI --> DANG_KHAM : Bác sĩ bắt đầu khám, TN05
+  DA_GOI --> BO_VE : Gọi 3 lần không có mặt, TN04
+  BO_VE --> DA_CHECK_IN : Lễ tân xếp lại, TN04
   DANG_KHAM --> CHO_CAN_LAM_SANG : Chỉ định xét nghiệm, TN05
-  CHO_CAN_LAM_SANG --> DANG_KHAM : Có kết quả, khám lại, TN05
+  CHO_CAN_LAM_SANG --> DA_CHECK_IN : Đủ kết quả, vào lại hàng đợi, TN05
+  CHO_CAN_LAM_SANG --> HOAN_THANH : Quá 7 ngày không quay lại, TN05
   DANG_KHAM --> HOAN_THANH : Bác sĩ kết thúc khám, TN05
   HET_GIU_CHO --> [*]
   DA_HUY --> [*]
@@ -110,7 +114,7 @@ Ngoài phạm vi cả đề: thanh toán viện phí và đặt cọc online, b�
 | SCR-B03 | Chọn ngày giờ | App bệnh nhân | SRS TN02 |
 | SCR-B04 | Xác nhận đặt lịch | App bệnh nhân | SRS TN02 |
 | SCR-B05 | Lịch hẹn của tôi | App bệnh nhân | SRS TN03 |
-| SCR-B06 | Vé khám, hàng đợi | App bệnh nhân | SRS TN04 |
+| SCR-B06 | Vé khám, hàng đợi | App bệnh nhân | SRS TN02 (phần xác nhận), SRS TN04 (hàng đợi) |
 | SCR-B07 | Kết quả khám | App bệnh nhân | SRS TN05 |
 | SCR-L01 | Lịch trong ngày | Web lễ tân | SRS TN04 |
 | SCR-L02 | Check-in, vãng lai | Web lễ tân | SRS TN04 |

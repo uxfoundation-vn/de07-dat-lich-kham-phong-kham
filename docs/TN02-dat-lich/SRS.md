@@ -203,6 +203,17 @@ flowchart TD
 
 ## 7. Mô tả màn hình
 
+### SCR-B01 Trang chủ
+
+| **#** | **Thành phần** | **Loại** | **Hành vi** |
+| --- | --- | --- | --- |
+| 1 | Lời chào, người khám đang chọn | Header | Đổi người khám trong tài khoản (tối đa 5) |
+| 2 | Đặt lịch khám | Button chính | Mở **SCR-B02** (UC-05) |
+| 3 | Lịch hẹn sắp tới | Card | Lịch gần nhất: bác sĩ, ngày giờ, trạng thái; chạm → **SCR-B06**. Không có lịch → ẩn card |
+| 4 | Tái khám | Card | Chỉ hiện khi có lời hẹn tái khám chưa đặt (TN05, BR-64); chạm → UC-05 với bác sĩ và ngày gợi ý điền sẵn |
+| 5 | Kết quả khám gần đây | Dòng liên kết | Mở **SCR-B07** (TN05), cần xác thực lại |
+| 6 | Màn trống | Empty state | Tài khoản chưa có lịch nào: hình minh hoạ, nút "Đặt lịch khám" `[giả định]` |
+
 ### SCR-B02 Chọn chuyên khoa, bác sĩ
 
 | **#** | **Thành phần** | **Loại** | **Hành vi** |
