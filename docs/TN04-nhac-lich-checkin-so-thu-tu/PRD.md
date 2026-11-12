@@ -128,6 +128,8 @@ AC04: Lịch bị đổi hoặc huỷ → huỷ các nhắc cũ, lên lịch nh�
 
 #### US2.1 Tự check-in bằng QR
 
+User Story: Là bệnh nhân, tôi muốn tự check-in bằng QR để không phải xếp hàng ở quầy.
+
 AC01: Quét QR vé khám ở kiosk hoặc quầy trong khoảng 60 phút trước giờ hẹn tới 30 phút sau.
 
 AC02: Check-in thành công → số thứ tự, phòng, số người phía trước hiện trên kiosk và App.
@@ -137,6 +139,8 @@ AC03: Quét quá sớm → báo giờ mở check-in.
 AC04: Quét quá muộn (> 30 phút) → báo không còn hiệu lực, mời gặp lễ tân.
 
 #### US2.2 Check-in tại quầy
+
+User Story: Là lễ tân, tôi muốn check-in tại quầy nhanh cho người không dùng app để quầy không ùn.
 
 AC01: Lễ tân tìm theo số điện thoại, tên, mã; bấm Check-in.
 
@@ -157,6 +161,8 @@ AC02: Còn 2 người phía trước → thông báo "Sắp tới lượt".
 AC03: Màn phòng chờ hiện từng bác sĩ: phòng, số đang khám, 3 số kế tiếp.
 
 #### US3.2 Đến trễ
+
+User Story: Là lễ tân, tôi muốn có quy tắc đến trễ rõ ràng để không phải tự quyết, tránh tranh cãi.
 
 AC01: Trễ ≤ 15 phút → giữ vị trí theo giờ hẹn.
 

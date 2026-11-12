@@ -150,6 +150,8 @@ AC05: Tự lưu nháp mỗi 10 giây.
 
 #### US2.2 Chỉ định cận lâm sàng
 
+User Story: Là bác sĩ, tôi muốn chỉ định xét nghiệm rồi tiếp tục khám người khác để không lãng phí thời gian chờ.
+
 AC01: Chọn xét nghiệm, chẩn đoán hình ảnh từ danh mục của phòng khám; in phiếu chỉ định.
 
 AC02: Phiên khám chuyển Chờ cận lâm sàng; bác sĩ gọi người khác.
@@ -160,6 +162,8 @@ AC04: Bác sĩ mở lại phiên khám với kết quả đính kèm.
 
 #### US2.3 Kê đơn và hẹn tái khám
 
+User Story: Là bác sĩ, tôi muốn kê đơn bằng mẫu và hẹn tái khám để ghi nhanh và bệnh nhân không quên tái khám.
+
 AC01: Đơn thuốc từ danh mục thuốc của phòng khám: tên, hàm lượng, liều, số lần mỗi ngày, số ngày, cách dùng (trước, sau ăn); tự tính số lượng.
 
 AC02: Mẫu đơn hay dùng của bác sĩ.
@@ -169,6 +173,8 @@ AC03: Cảnh báo khi trùng thuốc trong đơn hoặc người khám có ghi d
 AC04: Hẹn tái khám sau N ngày, kèm ghi chú.
 
 #### US2.4 Kết thúc khám
+
+User Story: Là bác sĩ, tôi muốn rà lại rồi kết thúc khám để kết quả đầy đủ và tới bệnh nhân ngay.
 
 AC01: Màn kiểm tra trước khi kết thúc: chẩn đoán, đơn, lời dặn, tái khám.
 

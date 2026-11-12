@@ -130,6 +130,8 @@ AC03: Luôn có lựa chọn "Khám tổng quát".
 
 #### US1.2 Chọn theo bác sĩ
 
+User Story: Là bệnh nhân, tôi muốn chọn đúng bác sĩ mình muốn khám để được theo dõi liên tục.
+
 AC01: Hồ sơ bác sĩ: ảnh, học hàm, chuyên khoa, giới thiệu, lịch làm việc trong tuần.
 
 AC02: "Tái khám" hiện bác sĩ người khám đã gặp trong 6 tháng qua.
@@ -137,6 +139,8 @@ AC02: "Tái khám" hiện bác sĩ người khám đã gặp trong 6 tháng qua.
 ### UC2. Chọn ngày giờ và giữ chỗ
 
 #### US2.1 Chọn khung giờ
+
+User Story: Là bệnh nhân, tôi muốn thấy khung giờ sớm nhất còn chỗ để được khám sớm.
 
 AC01: Dải 14 ngày; ngày không có chỗ mờ đi; có nút "Ngày sớm nhất còn chỗ".
 
@@ -160,6 +164,8 @@ AC04: Đổi khung khác → thả chỗ cũ, giữ chỗ mới.
 
 #### US3.1 Chọn người khám
 
+User Story: Là người đặt hộ, tôi muốn chọn đúng người khám để bác sĩ nhận đúng thông tin.
+
 AC01: Danh sách người khám trong tài khoản; thêm người mới ngay tại bước này.
 
 AC02: Người khám đã có 2 lịch đang chờ, hoặc đã có lịch cùng khoa cùng ngày → báo, không cho tiếp.
@@ -167,6 +173,8 @@ AC02: Người khám đã có 2 lịch đang chờ, hoặc đã có lịch cùng
 AC03: Người khám dưới 16 tuổi → ghi chú cần người giám hộ đi cùng.
 
 #### US3.2 Lý do khám và xác nhận
+
+User Story: Là bệnh nhân, tôi muốn ghi lý do khám và nhận vé khám có mã, QR để check-in nhanh.
 
 AC01: Lý do khám bắt buộc, có gợi ý theo triệu chứng đã chọn; đính kèm ảnh tuỳ chọn.
 

@@ -126,6 +126,8 @@ AC04: Khung giờ có trên App trong ≤ 1 phút sau khi lưu.
 
 #### US1.2 Ngoại lệ
 
+User Story: Là quản trị phòng khám, tôi muốn ghi ngày nghỉ, ca bổ sung để lịch đúng thực tế.
+
 AC01: Ngày nghỉ của phòng khám áp dụng cho mọi bác sĩ.
 
 AC02: Nghỉ phép bác sĩ theo ngày hoặc theo ca.
@@ -138,6 +140,8 @@ AC04: Ngoại lệ trùng ngày đã có lịch hẹn → hiện số lịch b�
 
 #### US2.1 Xem và khoá khung
 
+User Story: Là quản trị phòng khám, tôi muốn xem và khoá khung giờ còn trống để xử lý việc riêng của phòng khám.
+
 AC01: Lưới khung theo ngày, bác sĩ: tổng sức chứa, đã đặt online, đã đặt tại quầy, còn trống, giữ cho vãng lai.
 
 AC02: Khoá một khung còn trống → không ai đặt được; mở lại được.
@@ -145,6 +149,8 @@ AC02: Khoá một khung còn trống → không ai đặt được; mở lại �
 AC03: Khung đã có lịch không khoá được, phải xử lý lịch trước.
 
 #### US2.2 Tỉ lệ online và vãng lai
+
+User Story: Là quản trị phòng khám, tôi muốn giữ một phần chỗ cho lễ tân để còn chỗ cho khách vãng lai và ca gấp.
 
 AC01: Phần dành cho online hiện trên App; phần giữ chỉ lễ tân đặt được.
 
