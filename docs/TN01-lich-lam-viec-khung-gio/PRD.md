@@ -154,7 +154,7 @@ User Story: Là quản trị phòng khám, tôi muốn giữ một phần chỗ 
 
 AC01: Phần dành cho online hiện trên App; phần giữ chỉ lễ tân đặt được.
 
-AC02: Trước giờ khung 2 giờ, phần giữ còn trống mở cho lễ tân dùng tự do.
+AC02: Phần giữ luôn là của lễ tân. Từ 2 giờ trước giờ khung, khi App đã đóng đặt, phần dành cho online còn trống cũng mở cho lễ tân dùng.
 
 ### UC3. Bác sĩ nghỉ đột xuất
 
@@ -188,6 +188,8 @@ AC04: Lễ tân thấy cảnh báo trên lịch trong ngày.
 | Sinh khung lỗi | App trống lịch | Giám sát số khung mỗi ngày; cảnh báo khi bằng 0 |
 
 ## 10. Câu hỏi mở
+
+> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
 
 - Tỉ lệ 70/30 cố định hay theo chuyên khoa?
 - Mở đặt trước 14 ngày có phù hợp cho chuyên khoa đông như nhi?

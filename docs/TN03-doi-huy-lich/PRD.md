@@ -184,6 +184,8 @@ AC05: Lô chỉ đóng khi mọi lịch đã xử lý.
 
 ## 10. Câu hỏi mở
 
+> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+
 - Hạn 2 giờ có quá sát cho phòng khám không?
 - Có cho bệnh nhân từ chối chuyển bác sĩ để được ưu tiên lịch bác sĩ cũ?
 - Có cần danh sách chờ ngay ở MVP?

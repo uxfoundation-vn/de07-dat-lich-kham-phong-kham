@@ -217,6 +217,8 @@ AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác
 
 ## 10. Câu hỏi mở
 
+> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+
 - Chữ ký số dùng chứng thư của bác sĩ hay xác nhận đơn giản trong hệ thống?
 - Người khám ≥ 16 tuổi có tự động thôi chia sẻ với chủ tài khoản không?
 - Có cho bệnh nhân tải PDF kết quả không?

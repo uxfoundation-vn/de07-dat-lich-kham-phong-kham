@@ -206,6 +206,8 @@ AC04: Gửi SMS xác nhận tới số liên hệ của người khám.
 
 ## 10. Câu hỏi mở
 
+> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+
 - Có cần CCCD để chống đặt ảo không?
 - Bác sĩ bất kỳ có ưu tiên bác sĩ ít lịch hơn không?
 - Có cho đặt cùng lúc nhiều người khám (gia đình) trong một lượt?

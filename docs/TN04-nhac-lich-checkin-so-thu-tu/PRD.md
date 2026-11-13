@@ -81,7 +81,7 @@ Quy tắc được ghi trên vé khám và trong tin nhắc lịch, lễ tân kh
 | Mở check-in | 60 phút trước giờ hẹn |
 | Đến trễ | ≤ 15 phút: giữ thứ tự theo giờ hẹn; 15–30 phút: xếp sau người đã check-in đúng giờ; > 30 phút: Không đến |
 | Số thứ tự | Theo bác sĩ trong ngày; có lịch: A001…; vãng lai: W001… |
-| Thứ tự gọi | Người có lịch đã check-in và đến giờ hẹn trước; vãng lai xen vào khi khung giờ còn trống |
+| Thứ tự gọi | Người có lịch đã check-in và đến giờ hẹn trước; vãng lai xen vào khi khung giờ còn trống; vãng lai vượt sức chứa chỉ được gọi khi không có người có lịch nào đã đến giờ hẹn |
 | Vãng lai vượt sức chứa | Tối đa 3 người mỗi buổi mỗi bác sĩ |
 | Gọi lại | Tối đa 3 lần cách nhau 2 phút; không có mặt → bỏ lượt, có thể xếp lại cuối hàng |
 
@@ -209,6 +209,8 @@ AC03: Người bỏ lượt quay lại → lễ tân xếp lại cuối hàng.
 | Dữ liệu trên màn phòng chờ | Lộ tên bệnh nhân | Màn chỉ hiện số thứ tự, không hiện tên |
 
 ## 10. Câu hỏi mở
+
+> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
 
 - Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP?
 - Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ?

@@ -29,7 +29,7 @@
 
 | **Mã** | **Quy tắc** |
 | --- | --- |
-| BR-13 | **Khung đặt được trên App**: trạng thái `MO`, `booked_online < online_quota`, trong cửa sổ mở đặt (BR-07) |
+| BR-13 | **Khung đặt được trên App**: trạng thái `MO`, `booked_online < online_quota`, trong cửa sổ mở đặt (BR-07). Lễ tân đặt lịch trước hộ bệnh nhân (qua điện thoại, tại quầy) dùng quota quầy, mô tả ở SRS TN03, UC-10 (A2) |
 | BR-14 | **Gợi ý chuyên khoa**: bảng ánh xạ triệu chứng → chuyên khoa do quản trị phòng khám cấu hình (bác sĩ duyệt); chọn 1–3 triệu chứng, trả về 1–2 khoa theo số triệu chứng khớp; luôn kèm "Khám tổng quát" |
 | BR-15 | **Bác sĩ bất kỳ**: khung giờ gộp theo giờ trong một chuyên khoa; khi giữ chỗ, chọn bác sĩ có ít lịch đã đặt nhất trong buổi đó `[giả định]` |
 | BR-16 | **Tái khám**: hiện bác sĩ có lịch `HOAN_THANH` với người khám trong 180 ngày; bác sĩ `NGUNG` không hiện |
