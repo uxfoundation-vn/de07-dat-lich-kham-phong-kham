@@ -13,7 +13,6 @@
 | Phạm vi | Hàng đợi bác sĩ, xem trước hồ sơ, phiên khám, sinh hiệu, chẩn đoán, lời dặn, cận lâm sàng, đơn thuốc, cảnh báo, tái khám, kết thúc, sửa, kết quả trên App, quyền xem |
 | Ngoài phạm vi | Bệnh án điện tử chuẩn, kết nối máy, đơn thuốc liên thông, viện phí, khám từ xa |
 | Nền tảng | Web bác sĩ (tablet, desktop); App bệnh nhân `[giả định]` |
-| Figma | `[chưa có]` |
 
 ## 2. User Story
 
@@ -398,8 +397,6 @@ sequenceDiagram
 | MSG-52 | App | Bạn không có quyền xem kết quả này |
 | MSG-53 | Push (bệnh nhân) | Bác sĩ {tên} hẹn {người khám} tái khám khoảng ngày {d}. \[Đặt lịch\] |
 | MSG-54 | App | Đi làm {dịch vụ} tại {vị trí}, sau đó quay lại phòng {p}. Bạn sẽ được gọi ưu tiên khi có kết quả |
-
-Bản EN: `[chờ bổ sung]`.
 
 ## 10. Yêu cầu phi chức năng
 

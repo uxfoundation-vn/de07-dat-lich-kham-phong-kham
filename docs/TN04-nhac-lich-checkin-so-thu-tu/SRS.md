@@ -13,7 +13,6 @@
 | Phạm vi | Nhắc lịch, xác nhận sẽ đến, check-in, phiếu số, hàng đợi, ước tính chờ, sắp tới lượt, gọi, gọi lại, bỏ lượt, vãng lai, không đến |
 | Ngoài phạm vi | Ưu tiên tự động theo đối tượng, check-in bằng GPS, in số tự động ở kiosk, thanh toán |
 | Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (app kiosk tải từ App Store / Google Play, cài trên tablet ở cửa); Màn gọi số (TV) `[giả định]` |
-| Figma | `[chưa có]` |
 
 ## 2. User Story
 
@@ -419,8 +418,6 @@ sequenceDiagram
 | MSG-42 | Banner App | Bạn đã bị bỏ lượt vì không có mặt khi được gọi. Vui lòng gặp lễ tân để được xếp lại |
 | MSG-43 | Push | Sắp tới lượt bạn! Còn 2 người phía trước, vui lòng có mặt gần phòng {p} |
 | MSG-44 | Push | Mời số {số} vào phòng {p} |
-
-Bản EN: `[chờ bổ sung]`.
 
 ## 10. Yêu cầu phi chức năng
 

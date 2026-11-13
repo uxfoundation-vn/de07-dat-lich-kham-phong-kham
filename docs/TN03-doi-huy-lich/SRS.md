@@ -13,7 +13,6 @@
 | Phạm vi | Lịch hẹn của tôi, đổi lịch an toàn, huỷ có lý do, chính sách hạn, đổi hộ, huỷ hộ, lô cần xử lý, chuyển và huỷ hàng loạt, lịch sử thay đổi |
 | Ngoài phạm vi | Phí huỷ, danh sách chờ, chuyển cho người khám khác, đổi chuyên khoa |
 | Nền tảng | App bệnh nhân; Web lễ tân `[giả định]` |
-| Figma | `[chưa có]` |
 
 ## 2. User Story
 
@@ -375,8 +374,6 @@ sequenceDiagram
 | MSG-28 | Push, SMS | {Bác sĩ cũ} không thể khám ngày {d}. Lịch của {người khám} đã chuyển sang {bác sĩ mới}, giữ nguyên giờ {giờ}. \[Đổi lịch khác\] \[Huỷ\] |
 | MSG-29 | Push, SMS | Phòng khám rất tiếc phải huỷ lịch {giờ, ngày} của {người khám}: {lời nhắn}. \[Đặt lại\] |
 | MSG-30 | Banner Web lễ tân | Còn {n} lịch cần xử lý, trong đó {m} lịch cần gọi điện |
-
-Bản EN: `[chờ bổ sung]`.
 
 ## 10. Yêu cầu phi chức năng
 

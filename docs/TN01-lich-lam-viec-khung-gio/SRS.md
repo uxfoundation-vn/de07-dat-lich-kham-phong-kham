@@ -13,7 +13,6 @@
 | Phạm vi | Chuyên khoa, phòng, bác sĩ, ca lặp lại, ngoại lệ, sinh khung, sức chứa online và giữ chỗ, khoá khung, nghỉ đột xuất |
 | Ngoài phạm vi | Đổi ca giữa bác sĩ, tối ưu lịch tự động, lịch thiết bị, chấm công |
 | Nền tảng | Web quản trị (desktop) `[giả định]` |
-| Figma | `[chưa có]` |
 
 ## 2. User Story
 
@@ -312,8 +311,6 @@ sequenceDiagram
 | MSG-06 | Banner | Có {n} bệnh nhân đã check-in. Lễ tân cần thông báo trực tiếp |
 | MSG-07 | Popup | Khoá toàn bộ lịch của {bác sĩ} ngày {d}? {n} lịch hẹn sẽ cần huỷ hoặc chuyển. \[Huỷ\] \[Khoá lịch\] |
 | MSG-08 | Banner Web lễ tân, bác sĩ | {Bác sĩ} nghỉ {ca} hôm nay: {lý do}. {n} lịch hẹn đang được xử lý |
-
-Bản EN: `[chờ bổ sung]`.
 
 ## 10. Yêu cầu phi chức năng
 
