@@ -1,6 +1,6 @@
 # Đề 7 · Đặt lịch khám phòng khám
 
-> **Mã:** DE07 · **Độ khó:** 7/8 · **Vai trò:** 4 (bệnh nhân, lễ tân, bác sĩ, quản trị phòng khám) · **Nền tảng:** App bệnh nhân iOS / Android · Web lễ tân · Web bác sĩ (tablet) · Màn gọi số `[giả định]`
+> **Mã:** DE07 · **Độ khó:** 7/8 · **Vai trò:** 4 (bệnh nhân, lễ tân, bác sĩ, quản trị phòng khám) · **Nền tảng:** App bệnh nhân iOS / Android · Web lễ tân · Web bác sĩ (tablet) · Màn gọi số
 
 Phòng khám đa khoa tư nhân cho bệnh nhân đặt lịch theo chuyên khoa hoặc bác sĩ. Bệnh nhân giữ chỗ tạm khi chọn giờ, được nhắc lịch, check-in tại quầy hoặc bằng QR, lấy số thứ tự và theo dõi hàng đợi. Bác sĩ khám theo số và ghi nhận kết quả. Đây là đề có **bốn vai trò**, **tài nguyên hữu hạn bị tranh chấp** (khung giờ), **hàng đợi realtime** và **dữ liệu sức khoẻ nhạy cảm**. Đề gồm 5 tính năng; mỗi tính năng có 1 PRD và 1 SRS riêng.
 
@@ -101,7 +101,7 @@ Ngoài phạm vi cả đề: thanh toán viện phí và đặt cọc online, b�
 - "Người khám" là hồ sơ của người được khám, khác với tài khoản đặt lịch: một tài khoản có tối đa 5 người khám (bản thân và người thân).
 - Đăng nhập bệnh nhân bằng số điện thoại và OTP; nhân viên bằng tài khoản và mật khẩu, có xác thực hai lớp.
 - Mã BR, MSG, UC đánh số liên tục trong cả đề: TN01 dùng BR-01–12, MSG-01–08; TN02 dùng BR-13–26, MSG-09–20; TN03 dùng BR-27–38, MSG-21–30; TN04 dùng BR-39–54, MSG-31–44; TN05 dùng BR-55–68, MSG-45–54. Mã bổ sung sau đánh tiếp từ số cuối: BR-69 (chống đặt ảo), BR-70 (đặt cho nhiều người khám), MSG-55, MSG-56 ở SRS TN02; BR-71 (tải PDF kết quả) ở SRS TN05.
-- Giá trị đánh dấu `[giả định]` dùng để dựng flow, cần PO hoặc BA xác nhận trước khi dùng. Nội dung y khoa trong tài liệu chỉ để minh hoạ luồng.
+- Nội dung y khoa trong tài liệu chỉ để minh hoạ luồng.
 
 ## Danh sách màn hình
 

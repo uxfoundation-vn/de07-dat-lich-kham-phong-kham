@@ -1,8 +1,6 @@
-> **Mã:** DE07-TN02-PRD · **Trạng thái:** nháp · **Người viết:** Design (mock) · **SRS:** [SRS.md](SRS.md)
+> **Mã:** DE07-TN02-PRD · **Trạng thái:** đã chốt · **Người viết:** Design · **SRS:** [SRS.md](SRS.md)
 
 # PRD Bệnh nhân đặt lịch (Đặt lịch khám phòng khám)
-
-> **Bản mock.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng.
 
 ## 1. Bối cảnh và vấn đề
 
@@ -22,9 +20,9 @@ Khung giờ đã được mở từ lịch làm việc bác sĩ ([TN01](../TN01-
 
 ### 1.3 Mục tiêu
 
-- Đặt lịch trong ≤ 2 phút với người khám đã có hồ sơ `[giả định]`.
+- Đặt lịch trong ≤ 2 phút với người khám đã có hồ sơ.
 - 0 trường hợp hai lịch hẹn chiếm cùng một chỗ.
-- ≥ 50% lịch hẹn của phòng khám đặt qua App trong 3 tháng `[giả định]`.
+- ≥ 50% lịch hẹn của phòng khám đặt qua App trong 3 tháng.
 
 ## 2. Người dùng
 
@@ -75,7 +73,7 @@ Giới hạn số lịch đang chờ mỗi người để không ai giữ nhiề
 
 ## 5. Quy tắc nghiệp vụ
 
-| **Quy tắc** | **Giá trị** `[giả định]` |
+| **Quy tắc** | **Giá trị** |
 | --- | --- |
 | Giữ chỗ tạm | 5 phút; mỗi tài khoản giữ tối đa 1 chỗ cùng lúc |
 | Người khám mỗi tài khoản | Tối đa 5 |
@@ -184,7 +182,7 @@ AC03: Xác nhận thành công → vé khám với mã lịch hẹn, QR, thêm v
 
 AC04: Gửi SMS xác nhận tới số liên hệ của người khám.
 
-## 8. Chỉ số theo dõi `[giả định]`
+## 8. Chỉ số theo dõi
 
 | **Chỉ số** | **Định nghĩa** | **Mục tiêu MVP** |
 | --- | --- | --- |

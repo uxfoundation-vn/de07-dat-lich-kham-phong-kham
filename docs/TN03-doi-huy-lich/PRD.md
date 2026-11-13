@@ -1,8 +1,6 @@
-> **Mã:** DE07-TN03-PRD · **Trạng thái:** nháp · **Người viết:** Design (mock) · **SRS:** [SRS.md](SRS.md)
+> **Mã:** DE07-TN03-PRD · **Trạng thái:** đã chốt · **Người viết:** Design · **SRS:** [SRS.md](SRS.md)
 
 # PRD Đổi và huỷ lịch (Đặt lịch khám phòng khám)
-
-> **Bản mock.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng.
 
 ## 1. Bối cảnh và vấn đề
 
@@ -22,8 +20,8 @@ Lịch hẹn đã đặt ([TN02](../TN02-dat-lich/PRD.md)) thường thay đổi
 
 ### 1.3 Mục tiêu
 
-- ≥ 70% thay đổi lịch do bệnh nhân tự làm trên App `[giả định]`.
-- Tỉ lệ không đến không báo ≤ 10% `[giả định]`.
+- ≥ 70% thay đổi lịch do bệnh nhân tự làm trên App.
+- Tỉ lệ không đến không báo ≤ 10%.
 - 100% bệnh nhân bị ảnh hưởng bởi phòng khám huỷ được báo ≥ 2 giờ trước giờ khám (khi có thể).
 
 ## 2. Người dùng
@@ -73,7 +71,7 @@ Ai đổi, ai huỷ, khi nào, vì sao đều được ghi lại và hiện tron
 
 ## 5. Quy tắc nghiệp vụ
 
-| **Quy tắc** | **Giá trị** `[giả định]` |
+| **Quy tắc** | **Giá trị** |
 | --- | --- |
 | Hạn tự đổi, huỷ trên App | Trước giờ khám ≥ 2 giờ |
 | Sau hạn | Chỉ lễ tân đổi, huỷ được (bệnh nhân gọi hotline) |
@@ -162,7 +160,7 @@ AC04: Lịch < 4 giờ tới giờ khám được đánh dấu "Cần gọi đi�
 
 AC05: Lô chỉ đóng khi mọi lịch đã xử lý.
 
-## 8. Chỉ số theo dõi `[giả định]`
+## 8. Chỉ số theo dõi
 
 | **Chỉ số** | **Định nghĩa** | **Mục tiêu MVP** |
 | --- | --- | --- |

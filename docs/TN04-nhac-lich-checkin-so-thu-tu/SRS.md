@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN04-SRS · **Trạng thái:** nháp · **Người viết:** Design (mock) · **PRD:** [PRD.md](PRD.md)
+> **Mã:** DE07-TN04-SRS · **Trạng thái:** đã chốt · **Người viết:** Design · **PRD:** [PRD.md](PRD.md)
 
 # UC-DE07-04 - Nhắc lịch, check-in và số thứ tự
 
-> **Bản mock.** Giá trị `[giả định]` cần BA xác nhận. SRS này mô tả lịch từ `DA_XAC_NHAN` tới khi được gọi vào phòng (`DANG_KHAM`), kèm `KHONG_DEN`, `BO_VE`; phiên khám xem [SRS TN05](../TN05-kham-ghi-nhan-ket-qua/SRS.md).
+> SRS này mô tả lịch từ `DA_XAC_NHAN` tới khi được gọi vào phòng (`DANG_KHAM`), kèm `KHONG_DEN`, `BO_VE`; phiên khám xem [SRS TN05](../TN05-kham-ghi-nhan-ket-qua/SRS.md).
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 | Actor | Bệnh nhân · Lễ tân · Bác sĩ, điều dưỡng (gọi số) · App bệnh nhân · Web lễ tân · Kiosk · Màn gọi số · Máy chủ · Dịch vụ SMS |
 | Phạm vi | Nhắc lịch, xác nhận sẽ đến, check-in, phiếu số, hàng đợi, ước tính chờ, sắp tới lượt, gọi, gọi lại, bỏ lượt, vãng lai, không đến |
 | Ngoài phạm vi | Ưu tiên tự động theo đối tượng, check-in bằng GPS, in số tự động ở kiosk, thanh toán |
-| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (app kiosk tải từ App Store / Google Play, cài trên tablet ở cửa); Màn gọi số (TV) `[giả định]` |
+| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (app kiosk tải từ App Store / Google Play, cài trên tablet ở cửa); Màn gọi số (TV) |
 
 ## 2. User Story
 
@@ -35,7 +35,7 @@
 | BR-42 | **Cửa sổ check-in**: từ `start_at − 60 phút` tới `start_at + 30 phút`; ngoài cửa sổ App, kiosk từ chối; lễ tân check-in được tới `start_at + 30 phút` |
 | BR-43 | **QR check-in**: ký số, gắn mã lịch hẹn và phiên bản QR (đổi lịch cấp QR mới, QR cũ vô hiệu); mỗi lịch check-in 1 lần |
 | BR-44 | **Số thứ tự** theo bác sĩ trong ngày: có lịch `A{nnn}`, vãng lai `W{nnn}`, tăng dần theo thời điểm check-in |
-| BR-45 | **Mốc ưu tiên** `priority_time`: có lịch, check-in trước hoặc trễ ≤ 15 phút → `start_at`; trễ 15–30 phút → thời điểm check-in + 15 phút; vãng lai được gán vào khung còn chỗ → `start_at` của khung đó, nhưng không sớm hơn thời điểm check-in; vãng lai `VUOT_SUC_CHUA` → thời điểm check-in, kèm cờ `overflow` `[giả định]` |
+| BR-45 | **Mốc ưu tiên** `priority_time`: có lịch, check-in trước hoặc trễ ≤ 15 phút → `start_at`; trễ 15–30 phút → thời điểm check-in + 15 phút; vãng lai được gán vào khung còn chỗ → `start_at` của khung đó, nhưng không sớm hơn thời điểm check-in; vãng lai `VUOT_SUC_CHUA` → thời điểm check-in, kèm cờ `overflow` |
 | BR-46 | **Thứ tự gọi**: trong những người `DA_CHECK_IN` của bác sĩ, gọi người có `priority_time` nhỏ nhất mà `priority_time ≤ hiện tại + 10 phút`; không ai thoả → gọi người có `priority_time` nhỏ nhất. Người có cờ `overflow` (vãng lai vượt sức chứa, BR-45) chỉ được xét khi không còn người không có cờ nào thoả điều kiện `priority_time ≤ hiện tại + 10 phút`; nhờ vậy họ chỉ xen vào lúc trống và không bao giờ được gọi trước người có lịch đã đến giờ hẹn |
 | BR-47 | **Không đến**: tác vụ mỗi phút chuyển lịch `DA_XAC_NHAN` có `start_at + 30 phút < hiện tại` sang `KHONG_DEN`, **bỏ qua lịch đang có cờ `CAN_XU_LY`** (lịch này ở lại lô cho tới khi lễ tân xử lý, TN03 UC-11); trả chỗ cho khung (không còn ý nghĩa đặt online nhưng lễ tân thấy chỗ trống) |
 | BR-48 | **Vãng lai**: lễ tân tạo lịch kênh `QUAY` vào khung gần nhất còn chỗ (dùng quota quầy, rồi quota online còn trống); không còn chỗ → `VUOT_SUC_CHUA`, tối đa 3 mỗi buổi mỗi bác sĩ; lịch vãng lai check-in ngay |
@@ -350,12 +350,12 @@ flowchart TD
 | **#** | **Thành phần** | **Loại** | **Hành vi** |
 | --- | --- | --- | --- |
 | 1 | Cột mỗi bác sĩ | Grid | Tên bác sĩ, phòng, số đang khám (cỡ lớn), 3 số kế tiếp |
-| 2 | Đang gọi | Overlay | Số + phòng cỡ ≥ 160 px, nhấp nháy 5 giây, âm báo, đọc số bằng giọng nói `[giả định]` |
+| 2 | Đang gọi | Overlay | Số + phòng cỡ ≥ 160 px, nhấp nháy 5 giây, âm báo, đọc số bằng giọng nói |
 | 3 | Mất kết nối | Banner | "Đang kết nối lại…" giữ trạng thái cuối |
 
 ## 8. API
 
-| **API** | **Request chính** | **Response chính** | **Timeout / retry** `[giả định]` |
+| **API** | **Request chính** | **Response chính** | **Timeout / retry** |
 | --- | --- | --- | --- |
 | \[ReminderJob\] | – | Gửi nhắc BR-39, BR-40 | Chạy mỗi phút |
 | \[AttendanceConfirm\] | appointment_id | – | 3s / 2 lần |
@@ -421,7 +421,7 @@ sequenceDiagram
 
 ## 10. Yêu cầu phi chức năng
 
-| **Mục** | **Yêu cầu** `[giả định]` |
+| **Mục** | **Yêu cầu** |
 | --- | --- |
 | Hiệu năng | Check-in ≤ 1 giây; sự kiện hàng đợi tới màn gọi số và App ≤ 2 giây |
 | Tin cậy | Nhắc lịch gửi đúng giờ ± 2 phút; không nhắc lịch đã đổi, huỷ; màn gọi số tự kết nối lại và lấy đủ trạng thái |

@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN05-PRD · **Trạng thái:** nháp · **Người viết:** Design (mock) · **SRS:** [SRS.md](SRS.md)
+> **Mã:** DE07-TN05-PRD · **Trạng thái:** đã chốt · **Người viết:** Design · **SRS:** [SRS.md](SRS.md)
 
 # PRD Khám và ghi nhận kết quả (Đặt lịch khám phòng khám)
 
-> **Bản mock.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng. Nội dung y khoa chỉ để minh hoạ luồng, cần bác sĩ duyệt.
+> Nội dung y khoa chỉ để minh hoạ luồng, cần bác sĩ duyệt.
 
 ## 1. Bối cảnh và vấn đề
 
@@ -22,9 +22,9 @@ Bệnh nhân đã check-in và vào hàng đợi ([TN04](../TN04-nhac-lich-check
 
 ### 1.3 Mục tiêu
 
-- Bác sĩ ghi nhận kết quả một lượt khám trong ≤ 3 phút thao tác `[giả định]`.
-- 100% lượt khám hoàn thành có kết quả trên App trong ≤ 15 phút `[giả định]`.
-- ≥ 60% lịch tái khám được đặt từ hẹn tái khám của bác sĩ `[giả định]`.
+- Bác sĩ ghi nhận kết quả một lượt khám trong ≤ 3 phút thao tác.
+- 100% lượt khám hoàn thành có kết quả trên App trong ≤ 15 phút.
+- ≥ 60% lịch tái khám được đặt từ hẹn tái khám của bác sĩ.
 
 ## 2. Người dùng
 
@@ -77,7 +77,7 @@ Kết quả trên App viết rõ ràng: chẩn đoán, đơn thuốc dạng bả
 
 ## 5. Quy tắc nghiệp vụ
 
-| **Quy tắc** | **Giá trị** `[giả định]` |
+| **Quy tắc** | **Giá trị** |
 | --- | --- |
 | Bắt đầu khám | Bác sĩ bấm Bắt đầu khi bệnh nhân vào phòng |
 | Chẩn đoán | Bắt buộc ≥ 1 trước khi kết thúc |
@@ -168,7 +168,7 @@ AC01: Đơn thuốc từ danh mục thuốc của phòng khám: tên, hàm lư�
 
 AC02: Mẫu đơn hay dùng của bác sĩ.
 
-AC03: Cảnh báo khi trùng thuốc trong đơn hoặc người khám có ghi dị ứng `[giả định]`.
+AC03: Cảnh báo khi trùng thuốc trong đơn hoặc người khám có ghi dị ứng.
 
 AC04: Hẹn tái khám sau N ngày, kèm ghi chú.
 
@@ -192,9 +192,9 @@ AC02: Hẹn tái khám có nút Đặt lịch, mở đúng bác sĩ và ngày g�
 
 AC03: Nhắc đặt tái khám trước ngày hẹn 3 ngày nếu chưa đặt.
 
-AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác thực lại (sinh trắc hoặc mã PIN của App) `[giả định]`.
+AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác thực lại (sinh trắc hoặc mã PIN của App).
 
-## 8. Chỉ số theo dõi `[giả định]`
+## 8. Chỉ số theo dõi
 
 | **Chỉ số** | **Định nghĩa** | **Mục tiêu MVP** |
 | --- | --- | --- |

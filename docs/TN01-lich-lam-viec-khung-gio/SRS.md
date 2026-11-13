@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN01-SRS · **Trạng thái:** nháp · **Người viết:** Design (mock) · **PRD:** [PRD.md](PRD.md)
+> **Mã:** DE07-TN01-SRS · **Trạng thái:** đã chốt · **Người viết:** Design · **PRD:** [PRD.md](PRD.md)
 
 # UC-DE07-01 - Lịch làm việc bác sĩ và khung giờ
 
-> **Bản mock.** Giá trị `[giả định]` cần BA xác nhận. Đặt lịch dùng khung giờ xem [SRS TN02](../TN02-dat-lich/SRS.md); xử lý lịch hẹn bị ảnh hưởng xem [SRS TN03](../TN03-doi-huy-lich/SRS.md).
+> Đặt lịch dùng khung giờ xem [SRS TN02](../TN02-dat-lich/SRS.md); xử lý lịch hẹn bị ảnh hưởng xem [SRS TN03](../TN03-doi-huy-lich/SRS.md).
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 | Actor | Quản trị phòng khám · Bác sĩ (xem) · Lễ tân (xem) · Web quản trị · Máy chủ · Tác vụ sinh khung |
 | Phạm vi | Chuyên khoa, phòng, bác sĩ, ca lặp lại, ngoại lệ, sinh khung, sức chứa online và giữ chỗ, khoá khung, nghỉ đột xuất |
 | Ngoài phạm vi | Đổi ca giữa bác sĩ, tối ưu lịch tự động, lịch thiết bị, chấm công |
-| Nền tảng | Web quản trị (desktop) `[giả định]` |
+| Nền tảng | Web quản trị (desktop) |
 
 ## 2. User Story
 
@@ -32,9 +32,9 @@
 | BR-02 | **Ca lặp lại**: bác sĩ, thứ (T2–CN), giờ bắt đầu, giờ kết thúc (cách nhau ≥ thời lượng lượt), phòng, thời lượng lượt (10, 15, 20, 30 phút), sức chứa mỗi khung (1–6), hiệu lực từ ngày, đến ngày (tuỳ chọn) |
 | BR-03 | **Chống chồng**: một bác sĩ không có 2 ca giao nhau; một phòng không có 2 ca giao nhau trong cùng ngày |
 | BR-04 | **Khung giờ** = chia ca theo thời lượng lượt; khung cuối phải kết thúc ≤ giờ kết thúc ca. Mỗi khung: `start_at`, `end_at`, `capacity`, `online_quota`, `booked_online`, `booked_desk`, `status` |
-| BR-05 | **Quota online** = làm tròn xuống (capacity × 70%), tối thiểu 1 khi capacity ≥ 1; phần còn lại (**quota quầy** = capacity − online_quota) giữ cho lễ tân, đếm ở `booked_desk`. Trước mốc 2 giờ, lễ tân chỉ đặt vào quota quầy để không lấn chỗ của App. Từ 2 giờ trước `start_at`, khi App đã đóng đặt (BR-07), phần quota online còn trống được mở cho lễ tân dùng như chỗ thường `[giả định]` |
+| BR-05 | **Quota online** = làm tròn xuống (capacity × 70%), tối thiểu 1 khi capacity ≥ 1; phần còn lại (**quota quầy** = capacity − online_quota) giữ cho lễ tân, đếm ở `booked_desk`. Trước mốc 2 giờ, lễ tân chỉ đặt vào quota quầy để không lấn chỗ của App. Từ 2 giờ trước `start_at`, khi App đã đóng đặt (BR-07), phần quota online còn trống được mở cho lễ tân dùng như chỗ thường |
 | BR-06 | **Sinh khung**: tác vụ chạy 01:00 hằng ngày, sinh khung cho ngày thứ 30 kể từ hôm nay; sửa ca hoặc ngoại lệ → sinh lại ngay các ngày bị ảnh hưởng chưa có lịch hẹn |
-| BR-07 | **Mở đặt** trên App: khung có `start_at` trong 14 ngày tới và ≥ 2 giờ kể từ hiện tại `[giả định]` |
+| BR-07 | **Mở đặt** trên App: khung có `start_at` trong 14 ngày tới và ≥ 2 giờ kể từ hiện tại |
 | BR-08 | **Ngoại lệ**: `NGHI_PHONG_KHAM` (cả ngày, mọi bác sĩ), `NGHI_BAC_SI` (ngày hoặc ca), `CA_BO_SUNG` (một ngày, giờ, phòng). Ngoại lệ thắng ca lặp lại |
 | BR-09 | **Sửa có lịch hẹn**: mọi thay đổi (sửa ca, ngoại lệ nghỉ) làm biến mất hoặc thu nhỏ khung đã có lịch hẹn → không xoá khung đó; khung chuyển `KHOA`, lịch hẹn vào danh sách `CAN_XU_LY` (TN03). Trước khi lưu hiện MSG-02 với số lịch bị ảnh hưởng |
 | BR-10 | **Đổi thời lượng lượt, sức chứa** chỉ áp dụng cho ngày chưa có lịch hẹn nào trong ca đó; ngày đã có lịch giữ cấu hình cũ |
@@ -234,7 +234,7 @@ flowchart TD
 | --- | --- | --- |
 | Web quản trị → Lịch làm việc | **SCR-A01** | |
 | Web quản trị → Nghỉ đột xuất | UC-04, **SCR-A02** | |
-| Bác sĩ báo nghỉ (ngoài hệ thống) | Quản trị thực hiện UC-04 | `[giả định]` |
+| Bác sĩ báo nghỉ (ngoài hệ thống) | Quản trị thực hiện UC-04 | |
 | Cảnh báo "Ngày {d} chưa có khung" | **SCR-A01** | Giám sát BR-06 |
 
 ## 7. Mô tả màn hình
@@ -262,7 +262,7 @@ flowchart TD
 
 ## 8. API
 
-| **API** | **Request chính** | **Response chính** | **Timeout / retry** `[giả định]` |
+| **API** | **Request chính** | **Response chính** | **Timeout / retry** |
 | --- | --- | --- | --- |
 | \[ScheduleGet\] | doctor_id hoặc department_id, range | Ca, ngoại lệ, khung | 5s / 1 lần |
 | \[ScheduleSave\] | Ca (thêm, sửa, kết thúc) | Kết quả, impacted_appointments | 8s / 2 lần |
@@ -314,7 +314,7 @@ sequenceDiagram
 
 ## 10. Yêu cầu phi chức năng
 
-| **Mục** | **Yêu cầu** `[giả định]` |
+| **Mục** | **Yêu cầu** |
 | --- | --- |
 | Hiệu năng | Lưu ca, sinh lại khung 30 ngày ≤ 5 giây; App thấy khung mới ≤ 1 phút |
 | Toàn vẹn | Không có thao tác nào xoá khung có lịch hẹn; sinh khung idempotent theo (ca, ngày) |
