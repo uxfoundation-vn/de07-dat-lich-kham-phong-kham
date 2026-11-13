@@ -100,7 +100,7 @@ Ngoài phạm vi cả đề: thanh toán viện phí và đặt cọc online, b�
 - Màn App bệnh nhân mã `SCR-B..`, Web lễ tân `SCR-L..`, Web bác sĩ `SCR-D..`, Web quản trị `SCR-A..`, Màn gọi số `SCR-T..`.
 - "Người khám" là hồ sơ của người được khám, khác với tài khoản đặt lịch: một tài khoản có tối đa 5 người khám (bản thân và người thân).
 - Đăng nhập bệnh nhân bằng số điện thoại và OTP; nhân viên bằng tài khoản và mật khẩu, có xác thực hai lớp.
-- Mã BR, MSG, UC đánh số liên tục trong cả đề: TN01 dùng BR-01–12, MSG-01–08; TN02 dùng BR-13–26, MSG-09–20; TN03 dùng BR-27–38, MSG-21–30; TN04 dùng BR-39–54, MSG-31–44; TN05 dùng BR-55–68, MSG-45–54.
+- Mã BR, MSG, UC đánh số liên tục trong cả đề: TN01 dùng BR-01–12, MSG-01–08; TN02 dùng BR-13–26, MSG-09–20; TN03 dùng BR-27–38, MSG-21–30; TN04 dùng BR-39–54, MSG-31–44; TN05 dùng BR-55–68, MSG-45–54. Mã bổ sung sau đánh tiếp từ số cuối: BR-69 (chống đặt ảo), BR-70 (đặt cho nhiều người khám), MSG-55, MSG-56 ở SRS TN02; BR-71 (tải PDF kết quả) ở SRS TN05.
 - Giá trị đánh dấu `[giả định]` dùng để dựng flow, cần PO hoặc BA xác nhận trước khi dùng. Nội dung y khoa trong tài liệu chỉ để minh hoạ luồng.
 
 ## Danh sách màn hình

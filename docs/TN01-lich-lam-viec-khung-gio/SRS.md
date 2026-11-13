@@ -33,7 +33,7 @@
 | BR-02 | **Ca lặp lại**: bác sĩ, thứ (T2–CN), giờ bắt đầu, giờ kết thúc (cách nhau ≥ thời lượng lượt), phòng, thời lượng lượt (10, 15, 20, 30 phút), sức chứa mỗi khung (1–6), hiệu lực từ ngày, đến ngày (tuỳ chọn) |
 | BR-03 | **Chống chồng**: một bác sĩ không có 2 ca giao nhau; một phòng không có 2 ca giao nhau trong cùng ngày |
 | BR-04 | **Khung giờ** = chia ca theo thời lượng lượt; khung cuối phải kết thúc ≤ giờ kết thúc ca. Mỗi khung: `start_at`, `end_at`, `capacity`, `online_quota`, `booked_online`, `booked_desk`, `status` |
-| BR-05 | **Quota online** = làm tròn xuống (capacity × 70%), tối thiểu 1 khi capacity ≥ 1; phần còn lại giữ cho lễ tân. Từ 2 giờ trước `start_at`, phần giữ còn trống được lễ tân dùng như chỗ thường `[giả định]` |
+| BR-05 | **Quota online** = làm tròn xuống (capacity × 70%), tối thiểu 1 khi capacity ≥ 1; phần còn lại (**quota quầy** = capacity − online_quota) giữ cho lễ tân, đếm ở `booked_desk`. Trước mốc 2 giờ, lễ tân chỉ đặt vào quota quầy để không lấn chỗ của App. Từ 2 giờ trước `start_at`, khi App đã đóng đặt (BR-07), phần quota online còn trống được mở cho lễ tân dùng như chỗ thường `[giả định]` |
 | BR-06 | **Sinh khung**: tác vụ chạy 01:00 hằng ngày, sinh khung cho ngày thứ 30 kể từ hôm nay; sửa ca hoặc ngoại lệ → sinh lại ngay các ngày bị ảnh hưởng chưa có lịch hẹn |
 | BR-07 | **Mở đặt** trên App: khung có `start_at` trong 14 ngày tới và ≥ 2 giờ kể từ hiện tại `[giả định]` |
 | BR-08 | **Ngoại lệ**: `NGHI_PHONG_KHAM` (cả ngày, mọi bác sĩ), `NGHI_BAC_SI` (ngày hoặc ca), `CA_BO_SUNG` (một ngày, giờ, phòng). Ngoại lệ thắng ca lặp lại |
@@ -67,7 +67,7 @@ stateDiagram-v2
 
 | **Trạng thái** | **App bệnh nhân** | **Web lễ tân** |
 | --- | --- | --- |
-| `MO` | Hiện, đặt được nếu còn quota online | Đặt được |
+| `MO` | Hiện, đặt được nếu còn quota online | Đặt được vào quota quầy; từ 2 giờ trước giờ khung dùng được cả quota online còn trống (BR-05) |
 | `DAY_ONLINE` | Hiện "Hết chỗ" | Đặt được phần giữ |
 | `DAY` | Hiện "Hết chỗ" | Hết chỗ; vẫn thêm được vãng lai vượt (TN04) |
 | `KHOA` | Không hiện | Hiện khoá kèm lý do |
@@ -221,7 +221,7 @@ flowchart TD
 
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
-| A1 | Có bệnh nhân đã check-in | MSG-06: lễ tân cần báo trực tiếp cho những người này; vẫn cho xác nhận tiếp |
+| A1 | Có bệnh nhân đã check-in | MSG-06: lễ tân cần báo trực tiếp cho những người này; vẫn cho xác nhận tiếp. Lịch `DA_CHECK_IN` chưa được gọi cũng vào lô xử lý, lễ tân chuyển bác sĩ hoặc đổi, huỷ hộ theo SRS TN03 (BR-34, BR-35) |
 
 **Luồng lỗi**
 

@@ -154,7 +154,7 @@ User Story: Là quản trị phòng khám, tôi muốn giữ một phần chỗ 
 
 AC01: Phần dành cho online hiện trên App; phần giữ chỉ lễ tân đặt được.
 
-AC02: Trước giờ khung 2 giờ, phần giữ còn trống mở cho lễ tân dùng tự do.
+AC02: Phần giữ luôn là của lễ tân. Từ 2 giờ trước giờ khung, khi App đã đóng đặt, phần dành cho online còn trống cũng mở cho lễ tân dùng.
 
 ### UC3. Bác sĩ nghỉ đột xuất
 
@@ -189,7 +189,9 @@ AC04: Lễ tân thấy cảnh báo trên lịch trong ngày.
 
 ## 10. Câu hỏi mở
 
-- Tỉ lệ 70/30 cố định hay theo chuyên khoa?
-- Mở đặt trước 14 ngày có phù hợp cho chuyên khoa đông như nhi?
-- Bác sĩ có tự đăng ký nghỉ trên Web không, hay chỉ quản trị?
-- Có cho đặt lịch khám ngay trong ngày qua App không?
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
+
+- Tỉ lệ 70/30 cố định hay theo chuyên khoa? → **Đã chốt:** Cố định 70/30 cho mọi chuyên khoa (SRS BR-05).
+- Mở đặt trước 14 ngày có phù hợp cho chuyên khoa đông như nhi? → **Đã chốt:** Giữ 14 ngày (SRS BR-07).
+- Bác sĩ có tự đăng ký nghỉ trên Web không, hay chỉ quản trị? → **Đã chốt:** Không. Chỉ quản trị nhập; bác sĩ chỉ xem.
+- Có cho đặt lịch khám ngay trong ngày qua App không? → **Đã chốt:** Có, khi khung còn cách ≥ 2 giờ (SRS BR-07).

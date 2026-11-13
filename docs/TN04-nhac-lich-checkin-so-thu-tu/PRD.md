@@ -81,7 +81,7 @@ Quy tắc được ghi trên vé khám và trong tin nhắc lịch, lễ tân kh
 | Mở check-in | 60 phút trước giờ hẹn |
 | Đến trễ | ≤ 15 phút: giữ thứ tự theo giờ hẹn; 15–30 phút: xếp sau người đã check-in đúng giờ; > 30 phút: Không đến |
 | Số thứ tự | Theo bác sĩ trong ngày; có lịch: A001…; vãng lai: W001… |
-| Thứ tự gọi | Người có lịch đã check-in và đến giờ hẹn trước; vãng lai xen vào khi khung giờ còn trống |
+| Thứ tự gọi | Người có lịch đã check-in và đến giờ hẹn trước; vãng lai xen vào khi khung giờ còn trống; vãng lai vượt sức chứa chỉ được gọi khi không có người có lịch nào đã đến giờ hẹn |
 | Vãng lai vượt sức chứa | Tối đa 3 người mỗi buổi mỗi bác sĩ |
 | Gọi lại | Tối đa 3 lần cách nhau 2 phút; không có mặt → bỏ lượt, có thể xếp lại cuối hàng |
 
@@ -210,7 +210,9 @@ AC03: Người bỏ lượt quay lại → lễ tân xếp lại cuối hàng.
 
 ## 10. Câu hỏi mở
 
-- Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP?
-- Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ?
-- Số thứ tự theo bác sĩ hay theo chuyên khoa?
-- Có cần kiosk riêng hay dùng tablet ở quầy?
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
+
+- Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP? → **Đã chốt:** Không ở MVP.
+- Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ? → **Đã chốt:** Giữ 60 phút (SRS BR-42).
+- Số thứ tự theo bác sĩ hay theo chuyên khoa? → **Đã chốt:** Theo bác sĩ trong ngày (SRS BR-44).
+- Có cần kiosk riêng hay dùng tablet ở quầy? → **Đã chốt:** Không cần thiết bị riêng: kiosk là app tải từ store, chạy trên tablet ở cửa.

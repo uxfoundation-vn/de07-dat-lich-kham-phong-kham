@@ -36,8 +36,8 @@
 | BR-31 | **Giới hạn khi đổi**: bỏ qua lịch đang đổi khi kiểm tra BR-21 |
 | BR-32 | **Huỷ**: bắt buộc lý do (Bận việc, Đã khỏi, Đặt nhầm, Khám nơi khác, Khác + ghi chú); lịch `DA_HUY`, khung giảm đếm ngay; ghi `cancelled_by` (BENH_NHAN, LE_TAN, PHONG_KHAM) |
 | BR-33 | **Sau hạn** trên App: ẩn Đổi, Huỷ; hiện hotline và "Báo không đến được" → lịch `DA_HUY` lý do "Báo muộn", vẫn trả chỗ `[giả định]` |
-| BR-34 | **Lễ tân đổi, huỷ hộ** được mọi lúc trước khi check-in; bắt buộc ghi kênh yêu cầu (Điện thoại, Tại quầy) |
-| BR-35 | **Lô cần xử lý**: tạo từ BR-09, BR-12 (TN01); gồm các lịch `DA_XAC_NHAN` trong khung bị khoá; lịch trong lô có cờ `CAN_XU_LY` và hiện cảnh báo trên **SCR-L01** |
+| BR-34 | **Lễ tân đổi, huỷ hộ** được mọi lúc trước khi check-in; bắt buộc ghi kênh yêu cầu (Điện thoại, Tại quầy). Lịch `DA_CHECK_IN` **chưa được gọi** cũng đổi, huỷ hộ được trong hai trường hợp: bác sĩ hết giờ làm (TN04 UC-15 A1) hoặc bác sĩ nghỉ đột xuất (TN01 UC-04 A1). Chuyển sang bác sĩ khác trong cùng buổi → giữ `DA_CHECK_IN`, cấp số thứ tự mới của bác sĩ mới, giữ `priority_time`. Đổi sang ngày khác → lịch về `DA_XAC_NHAN` ở khung mới, số thứ tự cũ bị huỷ, không tính lượt đổi. **Lễ tân đặt lịch trước hộ** (kênh `QUAY`): tạo lịch `DA_XAC_NHAN` vào quota quầy của khung (TN01 BR-05), tăng `booked_desk`; áp dụng BR-20–22 về người khám, giới hạn lịch, lý do khám; không cần giữ chỗ tạm |
+| BR-35 | **Lô cần xử lý**: tạo từ BR-09, BR-12 (TN01); gồm các lịch `DA_XAC_NHAN` và lịch `DA_CHECK_IN` chưa được gọi trong khung bị khoá; lịch trong lô có cờ `CAN_XU_LY` và hiện cảnh báo trên **SCR-L01** |
 | BR-36 | **Chuyển hàng loạt**: chọn bác sĩ thay thế cùng khoa; với từng lịch, ghép vào khung cùng `start_at` của bác sĩ đó nếu còn chỗ (dùng cả quota online và quầy); lịch không ghép được ở lại trong lô |
 | BR-37 | **Huỷ hàng loạt**: lời nhắn mẫu (sửa được); lịch `DA_HUY` lý do "Phòng khám huỷ"; thông báo kèm nút đặt lại với 3 khung gợi ý gần nhất cùng khoa. Đặt lại từ thông báo không tính vào BR-21 trong 24 giờ |
 | BR-38 | **Thông báo**: mọi thay đổi gửi push cho chủ tài khoản và SMS cho số liên hệ người khám. Lịch có `start_at` < 4 giờ kể từ lúc phòng khám đổi, huỷ → cờ `CAN_GOI_DIEN`; lô chỉ đóng khi cờ được lễ tân đánh dấu đã gọi |
@@ -59,7 +59,7 @@ stateDiagram-v2
   DA_HUY --> [*]
 ```
 
-`DANG_DOI` và `CAN_XU_LY` là cờ đi kèm lịch `DA_XAC_NHAN`, không thay đổi việc lịch vẫn giữ chỗ cũ.
+`DANG_DOI` và `CAN_XU_LY` là cờ đi kèm lịch `DA_XAC_NHAN`, không thay đổi việc lịch vẫn giữ chỗ cũ. Lịch đang có cờ `CAN_XU_LY` không được nhắc lịch và không bị tự chuyển `KHONG_DEN` (TN04 BR-39, BR-47): bệnh nhân không có lỗi khi phòng khám chưa xử lý xong lô.
 
 ### 4.2 Trạng thái lô cần xử lý
 
@@ -160,7 +160,7 @@ flowchart TD
 
 | **Mục** | **Nội dung** |
 | --- | --- |
-| Tiền điều kiện | Lễ tân đăng nhập; lịch chưa check-in |
+| Tiền điều kiện | Lễ tân đăng nhập; lịch chưa check-in, hoặc đã check-in nhưng chưa được gọi trong hai trường hợp của BR-34 |
 | Hậu điều kiện | Lịch được đổi hoặc huỷ; lịch sử ghi lễ tân và kênh yêu cầu |
 
 ```mermaid
@@ -197,6 +197,8 @@ flowchart TD
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
 | A1 | Chọn Huỷ | Nhập lý do, kênh yêu cầu → lịch `DA_HUY`, `cancelled_by` = `LE_TAN` → thông báo bệnh nhân |
+| A2 | Bệnh nhân gọi điện hoặc đến quầy để đặt lịch trước, chưa có lịch | Bấm "Đặt lịch mới" trên **SCR-L03**: tìm hoặc tạo người khám, chọn khoa hoặc bác sĩ, chọn khung còn quota quầy, nhập lý do khám, ghi kênh yêu cầu → \[DeskAppointmentCreate\] tạo lịch `DA_XAC_NHAN` kênh `QUAY` (BR-34); bệnh nhân nhận SMS xác nhận kèm mã lịch hẹn |
+| A3 | Lịch `DA_CHECK_IN` chưa được gọi, bác sĩ hết giờ làm hoặc nghỉ đột xuất | Chuyển bác sĩ cùng buổi (cấp số mới, giữ `priority_time`) hoặc đổi sang ngày khác (về `DA_XAC_NHAN`, huỷ số cũ); báo trực tiếp cho bệnh nhân tại phòng chờ (BR-34) |
 
 **Luồng lỗi**
 
@@ -270,6 +272,7 @@ flowchart TD
 | Thông báo nhắc lịch → Đổi lịch | UC-08 | SRS TN04 |
 | Thông báo phòng khám huỷ → Đặt lại | **SCR-B03** với gợi ý | BR-37 |
 | Web lễ tân → Đổi lịch hộ | UC-10, **SCR-L03** | |
+| Web lễ tân → Đổi lịch hộ → Đặt lịch mới | UC-10 (A2), **SCR-L03** | Đặt lịch trước qua điện thoại, tại quầy |
 | Banner lô trên **SCR-L01**; Web quản trị sau nghỉ đột xuất | UC-11 | |
 
 ## 7. Mô tả màn hình
@@ -322,6 +325,7 @@ flowchart TD
 | \[AppointmentReschedule\] | appointment_id, hold_id, actor, channel | appointment mới (cùng mã, QR mới) | 5s / gửi lại cùng hold_id |
 | \[AppointmentCancel\] | appointment_id, reason, actor, channel | status `DA_HUY` | 5s / 2 lần |
 | \[AppointmentSearch\] (lễ tân) | phone, name, code | Lịch hẹn | 3s / 1 lần |
+| \[DeskAppointmentCreate\] (lễ tân) | patient_id hoặc thông tin người khám, slot_id, reason, channel | appointment_id, code; hoặc SLOT_FULL khi hết quota quầy | 5s / gửi lại cùng request_id |
 | \[ImpactBatchGet\] | batch_id | Lô, lịch, trạng thái, cờ gọi | 3s / 1 lần |
 | \[BulkReassign\] | batch_id, appointment_ids, new_doctor_id | Kết quả từng lịch | 15s / 1 lần |
 | \[BulkCancel\] | batch_id, appointment_ids, message | Kết quả từng lịch | 15s / 1 lần |

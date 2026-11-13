@@ -12,7 +12,7 @@
 | Actor | Bệnh nhân · Lễ tân · Bác sĩ, điều dưỡng (gọi số) · App bệnh nhân · Web lễ tân · Kiosk · Màn gọi số · Máy chủ · Dịch vụ SMS |
 | Phạm vi | Nhắc lịch, xác nhận sẽ đến, check-in, phiếu số, hàng đợi, ước tính chờ, sắp tới lượt, gọi, gọi lại, bỏ lượt, vãng lai, không đến |
 | Ngoài phạm vi | Ưu tiên tự động theo đối tượng, check-in bằng GPS, in số tự động ở kiosk, thanh toán |
-| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (tablet ở cửa); Màn gọi số (TV) `[giả định]` |
+| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (app kiosk tải từ App Store / Google Play, cài trên tablet ở cửa); Màn gọi số (TV) `[giả định]` |
 | Figma | `[chưa có]` |
 
 ## 2. User Story
@@ -30,15 +30,15 @@
 
 | **Mã** | **Quy tắc** |
 | --- | --- |
-| BR-39 | **Nhắc lịch** lúc `start_at − 24 giờ` và `start_at − 2 giờ`; giờ rơi vào 22:00–06:00 thì dời sang 06:00 (nếu vẫn trước `start_at`). Lịch đặt trong vòng 24 giờ chỉ nhắc mốc 2 giờ; trong vòng 2 giờ không nhắc |
+| BR-39 | **Nhắc lịch** lúc `start_at − 24 giờ` và `start_at − 2 giờ`; giờ rơi vào 22:00–06:00 thì dời sang 06:00 (nếu vẫn trước `start_at`). Lịch đặt trong vòng 24 giờ chỉ nhắc mốc 2 giờ; trong vòng 2 giờ không nhắc. Lịch đang có cờ `CAN_XU_LY` (TN03 BR-35) không được nhắc; sau khi lô xử lý xong (chuyển bác sĩ, đổi giờ) thì lên lịch nhắc lại theo giờ mới |
 | BR-40 | **Kênh nhắc**: push cho chủ tài khoản; SMS khi push lỗi, khi tắt thông báo, hoặc khi số người khám khác số chủ tài khoản |
 | BR-41 | **Xác nhận sẽ đến** từ nhắc 24 giờ: ghi `confirmed_attendance = true`; không đổi trạng thái lịch |
 | BR-42 | **Cửa sổ check-in**: từ `start_at − 60 phút` tới `start_at + 30 phút`; ngoài cửa sổ App, kiosk từ chối; lễ tân check-in được tới `start_at + 30 phút` |
 | BR-43 | **QR check-in**: ký số, gắn mã lịch hẹn và phiên bản QR (đổi lịch cấp QR mới, QR cũ vô hiệu); mỗi lịch check-in 1 lần |
 | BR-44 | **Số thứ tự** theo bác sĩ trong ngày: có lịch `A{nnn}`, vãng lai `W{nnn}`, tăng dần theo thời điểm check-in |
-| BR-45 | **Mốc ưu tiên** `priority_time`: có lịch, check-in trước hoặc trễ ≤ 15 phút → `start_at`; trễ 15–30 phút → thời điểm check-in + 15 phút; vãng lai → thời điểm check-in, hoặc `start_at` của khung trống được gán `[giả định]` |
-| BR-46 | **Thứ tự gọi**: trong những người `DA_CHECK_IN` của bác sĩ, gọi người có `priority_time` nhỏ nhất mà `priority_time ≤ hiện tại + 10 phút`; không ai thoả → gọi người có `priority_time` nhỏ nhất |
-| BR-47 | **Không đến**: tác vụ mỗi phút chuyển lịch `DA_XAC_NHAN` có `start_at + 30 phút < hiện tại` sang `KHONG_DEN`; trả chỗ cho khung (không còn ý nghĩa đặt online nhưng lễ tân thấy chỗ trống) |
+| BR-45 | **Mốc ưu tiên** `priority_time`: có lịch, check-in trước hoặc trễ ≤ 15 phút → `start_at`; trễ 15–30 phút → thời điểm check-in + 15 phút; vãng lai được gán vào khung còn chỗ → `start_at` của khung đó, nhưng không sớm hơn thời điểm check-in; vãng lai `VUOT_SUC_CHUA` → thời điểm check-in, kèm cờ `overflow` `[giả định]` |
+| BR-46 | **Thứ tự gọi**: trong những người `DA_CHECK_IN` của bác sĩ, gọi người có `priority_time` nhỏ nhất mà `priority_time ≤ hiện tại + 10 phút`; không ai thoả → gọi người có `priority_time` nhỏ nhất. Người có cờ `overflow` (vãng lai vượt sức chứa, BR-45) chỉ được xét khi không còn người không có cờ nào thoả điều kiện `priority_time ≤ hiện tại + 10 phút`; nhờ vậy họ chỉ xen vào lúc trống và không bao giờ được gọi trước người có lịch đã đến giờ hẹn |
+| BR-47 | **Không đến**: tác vụ mỗi phút chuyển lịch `DA_XAC_NHAN` có `start_at + 30 phút < hiện tại` sang `KHONG_DEN`, **bỏ qua lịch đang có cờ `CAN_XU_LY`** (lịch này ở lại lô cho tới khi lễ tân xử lý, TN03 UC-11); trả chỗ cho khung (không còn ý nghĩa đặt online nhưng lễ tân thấy chỗ trống) |
 | BR-48 | **Vãng lai**: lễ tân tạo lịch kênh `QUAY` vào khung gần nhất còn chỗ (dùng quota quầy, rồi quota online còn trống); không còn chỗ → `VUOT_SUC_CHUA`, tối đa 3 mỗi buổi mỗi bác sĩ; lịch vãng lai check-in ngay |
 | BR-49 | **Thông tin vãng lai tối thiểu**: họ tên, năm sinh, số điện thoại; lễ tân có thể liên kết với tài khoản sẵn có theo số điện thoại |
 | BR-50 | **Ước tính chờ** = số người phía trước × thời lượng lượt khám của bác sĩ; hiện dạng khoảng "{a}–{b} phút" (±30%); cập nhật mỗi khi hàng đợi thay đổi |
@@ -226,7 +226,7 @@ flowchart TD
 
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
-| A1 | Buổi hết chỗ nhưng vượt sức chứa dưới 3 người | MSG-39 báo chờ lâu; lễ tân xác nhận → lịch `VUOT_SUC_CHUA`, rồi bước 5 |
+| A1 | Buổi hết chỗ nhưng vượt sức chứa dưới 3 người | MSG-39 báo chờ lâu; lễ tân xác nhận → lịch `VUOT_SUC_CHUA`, rồi bước 5 với cờ `overflow`: chỉ được gọi khi không có người có lịch nào đã đến giờ (BR-46) |
 
 **Luồng lỗi**
 
@@ -275,7 +275,7 @@ flowchart TD
 
 | **Mã** | **Điều kiện** | **Xử lý** |
 | --- | --- | --- |
-| A1 | Hết giờ làm của bác sĩ mà còn người `DA_CHECK_IN` | Bác sĩ khám hết hàng đợi nếu được. Không được thì lễ tân đổi lịch hộ sang ngày gần nhất, không tính lượt đổi và không áp dụng hạn 2 giờ (TN03); bệnh nhân nhận thông báo kèm lời xin lỗi |
+| A1 | Hết giờ làm của bác sĩ mà còn người `DA_CHECK_IN` | Bác sĩ khám hết hàng đợi nếu được. Không được thì lễ tân đổi lịch hộ sang ngày gần nhất, không tính lượt đổi và không áp dụng hạn 2 giờ (TN03 BR-34, UC-10 A3); bệnh nhân nhận thông báo kèm lời xin lỗi |
 | A2 | Lịch `BO_VE` tới hết ngày không được xếp lại | Giữ `BO_VE`, kết thúc; thống kê cùng nhóm với `KHONG_DEN` |
 | A3 | Bệnh nhân đến sau khi lịch đã `KHONG_DEN` | Kiosk, App báo MSG-35; lễ tân tạo lượt vãng lai (UC-14), liên kết với hồ sơ người khám sẵn có |
 | A4 | Bệnh nhân chưa vào sau 2 phút | Gọi lại, tối đa 3 lần; hết 3 lần → lịch `BO_VE`, gọi người tiếp theo |
@@ -291,14 +291,14 @@ flowchart TD
 
 | **Mục** | **Nội dung** |
 | --- | --- |
-| Tiền điều kiện | Lịch `DA_XAC_NHAN` đã quá `start_at + 30 phút` |
+| Tiền điều kiện | Lịch `DA_XAC_NHAN` đã quá `start_at + 30 phút`, không có cờ `CAN_XU_LY` |
 | Hậu điều kiện | Lịch `KHONG_DEN`; chỗ trả về khung; huỷ các lần nhắc còn lại (BR-47) |
 
 **Luồng chính**
 
 | **Bước** | **Actor** | **Mô tả** |
 | --- | --- | --- |
-| 1 | Tác vụ | Mỗi phút tìm lịch `DA_XAC_NHAN` có `start_at + 30 phút < hiện tại` |
+| 1 | Tác vụ | Mỗi phút tìm lịch `DA_XAC_NHAN` có `start_at + 30 phút < hiện tại`, không có cờ `CAN_XU_LY` |
 | 2 | Máy chủ | Chuyển `KHONG_DEN` (BR-47); huỷ nhắc còn lại |
 | 3 | Web lễ tân | Lịch hiện "Không đến"; nếu bệnh nhân tới sau → thêm như vãng lai (UC-14) |
 
@@ -367,7 +367,7 @@ flowchart TD
 | \[CallNext\] | doctor_id | appointment gọi, queue_number | 3s / 1 lần |
 | \[Recall\] | appointment_id | call_count | 3s / 1 lần |
 | \[Requeue\] | appointment_id | priority_time mới | 3s / 2 lần |
-| \[NoShowJob\] | – | Chuyển `KHONG_DEN` BR-47 | Chạy mỗi phút |
+| \[NoShowJob\] | – | Chuyển `KHONG_DEN` BR-47; cập nhật bộ đếm chống đặt ảo (TN02 BR-69) | Chạy mỗi phút |
 
 ```mermaid
 sequenceDiagram

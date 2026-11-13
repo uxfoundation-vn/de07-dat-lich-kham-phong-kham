@@ -184,7 +184,9 @@ AC05: Lô chỉ đóng khi mọi lịch đã xử lý.
 
 ## 10. Câu hỏi mở
 
-- Hạn 2 giờ có quá sát cho phòng khám không?
-- Có cho bệnh nhân từ chối chuyển bác sĩ để được ưu tiên lịch bác sĩ cũ?
-- Có cần danh sách chờ ngay ở MVP?
-- Không đến nhiều lần có giới hạn đặt online không?
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
+
+- Hạn 2 giờ có quá sát cho phòng khám không? → **Đã chốt:** Giữ 2 giờ (SRS BR-27).
+- Có cho bệnh nhân từ chối chuyển bác sĩ để được ưu tiên lịch bác sĩ cũ? → **Đã chốt:** Không.
+- Có cần danh sách chờ ngay ở MVP? → **Đã chốt:** Không ở MVP.
+- Không đến nhiều lần có giới hạn đặt online không? → **Đã chốt:** Có. Không đến hoặc báo muộn 3 lần trong 90 ngày thì khoá đặt online 30 ngày (SRS TN02 BR-69).
