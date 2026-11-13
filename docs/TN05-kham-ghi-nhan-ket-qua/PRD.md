@@ -217,9 +217,9 @@ AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác
 
 ## 10. Câu hỏi mở
 
-> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
 
 - Chữ ký số dùng chứng thư của bác sĩ hay xác nhận đơn giản trong hệ thống? → **Đã chốt:** Xác nhận đơn giản bằng PIN của bác sĩ trong hệ thống (SRS BR-65); không dùng chứng thư số.
-- Người khám ≥ 16 tuổi có tự động thôi chia sẻ với chủ tài khoản không?
+- Người khám ≥ 16 tuổi có tự động thôi chia sẻ với chủ tài khoản không? → **Đã chốt:** Không tự động; người khám ≥ 16 tuổi tự tắt được (SRS BR-67).
 - Có cho bệnh nhân tải PDF kết quả không? → **Đã chốt:** Có (SRS BR-71).
-- Sửa kết quả sau 24 giờ xử lý thế nào?
+- Sửa kết quả sau 24 giờ xử lý thế nào? → **Đã chốt:** Quá 24 giờ chỉ thêm ghi chú bổ sung, không sửa nội dung (SRS BR-66).

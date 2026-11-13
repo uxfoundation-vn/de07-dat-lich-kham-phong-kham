@@ -210,9 +210,9 @@ AC03: Người bỏ lượt quay lại → lễ tân xếp lại cuối hàng.
 
 ## 10. Câu hỏi mở
 
-> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
 
-- Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP?
-- Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ?
-- Số thứ tự theo bác sĩ hay theo chuyên khoa?
+- Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP? → **Đã chốt:** Không ở MVP.
+- Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ? → **Đã chốt:** Giữ 60 phút (SRS BR-42).
+- Số thứ tự theo bác sĩ hay theo chuyên khoa? → **Đã chốt:** Theo bác sĩ trong ngày (SRS BR-44).
 - Có cần kiosk riêng hay dùng tablet ở quầy? → **Đã chốt:** Không cần thiết bị riêng: kiosk là app tải từ store, chạy trên tablet ở cửa.

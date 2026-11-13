@@ -206,9 +206,9 @@ AC04: Gửi SMS xác nhận tới số liên hệ của người khám.
 
 ## 10. Câu hỏi mở
 
-> Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
+> Mọi câu hỏi dưới đây đã được PO chốt ngày 13/11/2026; quyết định ghi sau mỗi câu và đã cập nhật vào SRS.
 
-- Có cần CCCD để chống đặt ảo không?
-- Bác sĩ bất kỳ có ưu tiên bác sĩ ít lịch hơn không?
+- Có cần CCCD để chống đặt ảo không? → **Đã chốt:** Không. CCCD tuỳ chọn; chống đặt ảo dùng bộ đếm không đến (SRS BR-69).
+- Bác sĩ bất kỳ có ưu tiên bác sĩ ít lịch hơn không? → **Đã chốt:** Có. Chọn bác sĩ ít lịch nhất trong buổi (SRS BR-15).
 - Có cho đặt cùng lúc nhiều người khám (gia đình) trong một lượt? → **Đã chốt:** Có, tối đa 3 người trong một lượt (SRS BR-70).
-- Thời gian giữ chỗ 5 phút có đủ khi phải thêm người khám mới?
+- Thời gian giữ chỗ 5 phút có đủ khi phải thêm người khám mới? → **Đã chốt:** Giữ 5 phút; đặt cho nhiều người thì cộng 2 phút mỗi người (SRS BR-70).
