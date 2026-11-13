@@ -13,7 +13,6 @@
 | Phạm vi | Chuyên khoa, gợi ý theo triệu chứng, bác sĩ, tái khám, chọn khung, giữ chỗ, hồ sơ người khám, lý do khám, xác nhận, vé khám |
 | Ngoài phạm vi | Đặt cọc, bảo hiểm, tư vấn AI, đặt xét nghiệm riêng |
 | Nền tảng | App bệnh nhân iOS / Android `[giả định]` |
-| Figma | `[chưa có]` |
 
 ## 2. User Story
 
@@ -349,8 +348,6 @@ sequenceDiagram
 | MSG-20 | Inline | Người khám dưới 16 tuổi cần người giám hộ đi cùng |
 | MSG-55 | Inline **SCR-B04** | {Tên} đã không đến hoặc báo huỷ muộn 2 lần gần đây. Lần thứ 3 sẽ tạm khoá đặt lịch online 30 ngày |
 | MSG-56 | Popup | Đặt lịch online cho {tên} đang tạm khoá tới {dd/mm} vì không đến nhiều lần. Vui lòng gọi {hotline} để đặt qua lễ tân |
-
-Bản EN: `[chờ bổ sung]`.
 
 ## 10. Yêu cầu phi chức năng
 
