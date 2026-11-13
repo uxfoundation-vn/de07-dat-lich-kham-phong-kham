@@ -43,6 +43,7 @@
 | BR-65 | **Kết thúc khám**: kiểm tra BR-59, BR-63; khoá kết quả, gắn chữ ký của bác sĩ (xác nhận bằng mã PIN cá nhân) và thời điểm; lịch `HOAN_THANH`; kết quả hiện trên App ngay |
 | BR-66 | **Sửa sau kết thúc**: trong 24 giờ, bắt buộc lý do; lưu phiên bản mới, giữ phiên bản cũ; App hiện "Đã cập nhật {giờ}" và gửi thông báo. Quá 24 giờ chỉ thêm ghi chú bổ sung `[giả định]` |
 | BR-67 | **Quyền xem kết quả trên App**: người khám có tài khoản riêng (≥ 16 tuổi) và chủ tài khoản đang quản lý người khám đó; người khám ≥ 16 tuổi có thể tắt chia sẻ với chủ tài khoản. Mở màn kết quả cần xác thực lại (sinh trắc học hoặc PIN App) |
+| BR-71 | **Tải PDF kết quả** trên App: nút "Tải PDF" ở **SCR-B07** tạo file từ phiên bản mới nhất, gồm người khám, ngày, bác sĩ, chẩn đoán, lời dặn, kết quả CLS, đơn thuốc, hẹn tái khám, xác nhận của bác sĩ (tên, thời điểm) và số phiên bản. Mỗi trang có dòng "Bản sao kết quả khám cho {họ tên}". Chỉ người có quyền theo BR-67 tải được; mỗi lần tải ghi nhật ký BR-68 |
 | BR-68 | **Nhật ký truy cập**: mọi lần xem, sửa phiên khám, kết quả (nhân viên và App) ghi người, thời gian, hành động; không xoá được |
 
 ## 4. Trạng thái
@@ -326,6 +327,7 @@ flowchart TD
 | 5 | Đơn thuốc | Bảng lịch uống | Cột sáng, trưa, chiều, tối; mỗi thuốc: tên, liều, trước hay sau ăn, số ngày; nút "Đặt nhắc uống thuốc" `[giả định]` |
 | 6 | Tái khám | Card | "Tái khám sau {n} ngày, khoảng {ngày}" + Đặt lịch |
 | 7 | Chia sẻ | Setting | Người khám ≥ 16 tuổi tắt, bật chia sẻ với chủ tài khoản (BR-67) |
+| 8 | Tải PDF | Button | Tạo và lưu, chia sẻ file PDF kết quả (BR-71) |
 
 ## 8. API
 
@@ -342,6 +344,7 @@ flowchart TD
 | \[PrescriptionCheck\] | encounter_id, lines | Cảnh báo BR-63 | 3s / 1 lần |
 | \[EncounterFinish\] | encounter_id, pin, acknowledged_warnings | status `HOAN_THANH`, version | 5s / gửi lại cùng request_id |
 | \[EncounterAmend\] | encounter_id, changes, reason, pin | version mới | 5s / 2 lần |
+| \[ResultPdf\] (App) | appointment_id, reauth_token | Link tải PDF có hạn 10 phút | 10s / 1 lần; BR-71 |
 | \[ResultGet\] (App) | appointment_id, reauth_token | Kết quả phiên bản mới nhất | 5s / 1 lần |
 
 ```mermaid
@@ -404,8 +407,8 @@ Bản EN: `[chờ bổ sung]`.
 | --- | --- |
 | Hiệu năng | **SCR-D01** ≤ 2 giây; xem trước hồ sơ ≤ 1 giây; kết quả lên App ≤ 1 phút sau kết thúc |
 | Bảo mật dữ liệu sức khoẻ | Mã hoá khi lưu và truyền; phân quyền BR-55, BR-67; xác thực lại khi xem kết quả; thông báo đẩy không chứa chẩn đoán |
-| Audit | Nhật ký truy cập BR-68 giữ tối thiểu 10 năm `[cần chốt theo quy định]`; phiên bản kết quả không xoá |
+| Audit | Nhật ký truy cập BR-68 giữ 10 năm; phiên bản kết quả không xoá |
 | Tin cậy | Không mất nháp khi mất mạng, tải lại trang; kết thúc khám idempotent |
-| Pháp lý | Đối chiếu quy định về hồ sơ bệnh án, đơn thuốc và bảo vệ dữ liệu cá nhân trước khi phát hành `[cần chốt]` |
+| Pháp lý | Đề là bản demo, không yêu cầu đối chiếu quy định về hồ sơ bệnh án; vẫn giữ mã hoá, phân quyền và nhật ký truy cập ở mức cơ bản |
 | Tracking | Thời gian ghi nhận, dùng mẫu, chỉ định CLS, cảnh báo đơn (loại, xác nhận), sửa sau kết thúc, mở kết quả, đặt tái khám |
 | Accessibility | Dị ứng, cảnh báo có chữ và biểu tượng; Web bác sĩ dùng được bằng bàn phím; kết quả trên App đọc được bằng trình đọc màn hình, chữ lớn |

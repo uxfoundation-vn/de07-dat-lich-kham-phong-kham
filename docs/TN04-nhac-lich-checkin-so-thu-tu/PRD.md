@@ -215,4 +215,4 @@ AC03: Người bỏ lượt quay lại → lễ tân xếp lại cuối hàng.
 - Có ưu tiên người cao tuổi, trẻ nhỏ, phụ nữ có thai ở MVP?
 - Mở check-in 60 phút trước có quá sớm cho phòng khám nhỏ?
 - Số thứ tự theo bác sĩ hay theo chuyên khoa?
-- Có cần kiosk riêng hay dùng tablet ở quầy?
+- Có cần kiosk riêng hay dùng tablet ở quầy? → **Đã chốt:** Không cần thiết bị riêng: kiosk là app tải từ store, chạy trên tablet ở cửa.

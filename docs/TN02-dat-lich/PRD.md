@@ -210,5 +210,5 @@ AC04: Gửi SMS xác nhận tới số liên hệ của người khám.
 
 - Có cần CCCD để chống đặt ảo không?
 - Bác sĩ bất kỳ có ưu tiên bác sĩ ít lịch hơn không?
-- Có cho đặt cùng lúc nhiều người khám (gia đình) trong một lượt?
+- Có cho đặt cùng lúc nhiều người khám (gia đình) trong một lượt? → **Đã chốt:** Có, tối đa 3 người trong một lượt (SRS BR-70).
 - Thời gian giữ chỗ 5 phút có đủ khi phải thêm người khám mới?

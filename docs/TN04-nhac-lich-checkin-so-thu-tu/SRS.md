@@ -12,7 +12,7 @@
 | Actor | Bệnh nhân · Lễ tân · Bác sĩ, điều dưỡng (gọi số) · App bệnh nhân · Web lễ tân · Kiosk · Màn gọi số · Máy chủ · Dịch vụ SMS |
 | Phạm vi | Nhắc lịch, xác nhận sẽ đến, check-in, phiếu số, hàng đợi, ước tính chờ, sắp tới lượt, gọi, gọi lại, bỏ lượt, vãng lai, không đến |
 | Ngoài phạm vi | Ưu tiên tự động theo đối tượng, check-in bằng GPS, in số tự động ở kiosk, thanh toán |
-| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (tablet ở cửa); Màn gọi số (TV) `[giả định]` |
+| Nền tảng | App bệnh nhân; Web lễ tân; Kiosk (app kiosk tải từ App Store / Google Play, cài trên tablet ở cửa); Màn gọi số (TV) `[giả định]` |
 | Figma | `[chưa có]` |
 
 ## 2. User Story
@@ -367,7 +367,7 @@ flowchart TD
 | \[CallNext\] | doctor_id | appointment gọi, queue_number | 3s / 1 lần |
 | \[Recall\] | appointment_id | call_count | 3s / 1 lần |
 | \[Requeue\] | appointment_id | priority_time mới | 3s / 2 lần |
-| \[NoShowJob\] | – | Chuyển `KHONG_DEN` BR-47 | Chạy mỗi phút |
+| \[NoShowJob\] | – | Chuyển `KHONG_DEN` BR-47; cập nhật bộ đếm chống đặt ảo (TN02 BR-69) | Chạy mỗi phút |
 
 ```mermaid
 sequenceDiagram

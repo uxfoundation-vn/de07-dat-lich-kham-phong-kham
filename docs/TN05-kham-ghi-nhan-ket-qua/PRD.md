@@ -209,7 +209,7 @@ AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác
 
 | **Mục** | **Mô tả** | **Hướng xử lý** |
 | --- | --- | --- |
-| Pháp lý dữ liệu y tế | Quy định bảo vệ dữ liệu cá nhân nhạy cảm | Mã hoá, phân quyền chặt, nhật ký truy cập; tư vấn pháp lý `[cần chốt]` |
+| Pháp lý dữ liệu y tế | Quy định bảo vệ dữ liệu cá nhân nhạy cảm | Mã hoá, phân quyền chặt, nhật ký truy cập; bản demo nên không cần tư vấn pháp lý |
 | Danh mục chẩn đoán, thuốc | Cần danh mục chuẩn, cập nhật | Phòng khám cung cấp, có gõ tự do dự phòng |
 | Cảnh báo thuốc | Sai sót có hậu quả nghiêm trọng | MVP chỉ cảnh báo trùng và dị ứng đã ghi; bác sĩ chịu trách nhiệm |
 | Bác sĩ ngại nhập liệu | Ghi sơ sài hoặc ghi giấy | Mẫu nhanh, tự lưu, bàn phím tắt |
@@ -219,7 +219,7 @@ AC04: Chỉ người có quyền mới xem được; mở kết quả cần xác
 
 > Câu nào đã có giá trị ở mục 5 thì giá trị đó là **tạm chốt** `[giả định]` để dựng flow. Câu hỏi vẫn để mở cho đến khi PO xác nhận.
 
-- Chữ ký số dùng chứng thư của bác sĩ hay xác nhận đơn giản trong hệ thống?
+- Chữ ký số dùng chứng thư của bác sĩ hay xác nhận đơn giản trong hệ thống? → **Đã chốt:** Xác nhận đơn giản bằng PIN của bác sĩ trong hệ thống (SRS BR-65); không dùng chứng thư số.
 - Người khám ≥ 16 tuổi có tự động thôi chia sẻ với chủ tài khoản không?
-- Có cho bệnh nhân tải PDF kết quả không?
+- Có cho bệnh nhân tải PDF kết quả không? → **Đã chốt:** Có (SRS BR-71).
 - Sửa kết quả sau 24 giờ xử lý thế nào?
