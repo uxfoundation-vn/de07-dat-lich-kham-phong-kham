@@ -1,8 +1,6 @@
-> **Mã:** DE07-TN04-PRD · **Trạng thái:** nháp · **Người viết:** Design (mock) · **SRS:** [SRS.md](SRS.md)
+> **Mã:** DE07-TN04-PRD · **Trạng thái:** đã chốt · **Người viết:** Design · **SRS:** [SRS.md](SRS.md)
 
 # PRD Nhắc lịch, check-in và số thứ tự (Đặt lịch khám phòng khám)
-
-> **Bản mock.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng.
 
 ## 1. Bối cảnh và vấn đề
 
@@ -23,9 +21,9 @@ Từ lúc đặt lịch ([TN02](../TN02-dat-lich/PRD.md)) tới lúc vào phòng
 
 ### 1.3 Mục tiêu
 
-- Tỉ lệ không đến ≤ 10% `[giả định]`.
-- ≥ 50% bệnh nhân có lịch tự check-in bằng QR `[giả định]`.
-- Bệnh nhân có lịch, đến đúng giờ, được gọi trong ≤ 15 phút sau giờ hẹn ở ≥ 80% lượt `[giả định]`.
+- Tỉ lệ không đến ≤ 10%.
+- ≥ 50% bệnh nhân có lịch tự check-in bằng QR.
+- Bệnh nhân có lịch, đến đúng giờ, được gọi trong ≤ 15 phút sau giờ hẹn ở ≥ 80% lượt.
 
 ## 2. Người dùng
 
@@ -75,7 +73,7 @@ Quy tắc được ghi trên vé khám và trong tin nhắc lịch, lễ tân kh
 
 ## 5. Quy tắc nghiệp vụ
 
-| **Quy tắc** | **Giá trị** `[giả định]` |
+| **Quy tắc** | **Giá trị** |
 | --- | --- |
 | Nhắc lịch | 24 giờ và 2 giờ trước giờ hẹn; không gửi 22:00–06:00 (dời sang 06:00) |
 | Mở check-in | 60 phút trước giờ hẹn |
@@ -188,7 +186,7 @@ AC02: Không có mặt → gọi lại tối đa 3 lần cách 2 phút; rồi b�
 
 AC03: Người bỏ lượt quay lại → lễ tân xếp lại cuối hàng.
 
-## 8. Chỉ số theo dõi `[giả định]`
+## 8. Chỉ số theo dõi
 
 | **Chỉ số** | **Định nghĩa** | **Mục tiêu MVP** |
 | --- | --- | --- |

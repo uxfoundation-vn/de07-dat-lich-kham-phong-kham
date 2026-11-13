@@ -1,8 +1,6 @@
-> **Mã:** DE07-TN01-PRD · **Trạng thái:** nháp · **Người viết:** Design (mock) · **SRS:** [SRS.md](SRS.md)
+> **Mã:** DE07-TN01-PRD · **Trạng thái:** đã chốt · **Người viết:** Design · **SRS:** [SRS.md](SRS.md)
 
 # PRD Lịch làm việc bác sĩ và khung giờ (Đặt lịch khám phòng khám)
-
-> **Bản mock.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng.
 
 ## 1. Bối cảnh và vấn đề
 
@@ -22,9 +20,9 @@ Bệnh nhân chỉ đặt được những khung giờ mà phòng khám mở ([T
 
 ### 1.3 Mục tiêu
 
-- Thiết lập lịch làm việc lặp lại cho một bác sĩ trong ≤ 5 phút `[giả định]`.
+- Thiết lập lịch làm việc lặp lại cho một bác sĩ trong ≤ 5 phút.
 - 100% lịch hẹn bị ảnh hưởng khi bác sĩ nghỉ đột xuất được xử lý trước giờ khám.
-- Khung giờ trên App luôn khớp lịch làm việc, độ trễ ≤ 1 phút sau khi sửa `[giả định]`.
+- Khung giờ trên App luôn khớp lịch làm việc, độ trễ ≤ 1 phút sau khi sửa.
 
 ## 2. Người dùng
 
@@ -73,7 +71,7 @@ Lịch đổi trên Web quản trị là App bệnh nhân và Web lễ tân th�
 
 ## 5. Quy tắc nghiệp vụ
 
-| **Quy tắc** | **Giá trị** `[giả định]` |
+| **Quy tắc** | **Giá trị** |
 | --- | --- |
 | Thời lượng lượt khám | 10, 15, 20, 30 phút |
 | Số người mỗi khung | 1–6 |
@@ -168,7 +166,7 @@ AC03: Danh sách lịch bị ảnh hưởng chuyển sang xử lý: huỷ kèm t
 
 AC04: Lễ tân thấy cảnh báo trên lịch trong ngày.
 
-## 8. Chỉ số theo dõi `[giả định]`
+## 8. Chỉ số theo dõi
 
 | **Chỉ số** | **Định nghĩa** | **Mục tiêu MVP** |
 | --- | --- | --- |

@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN05-SRS · **Trạng thái:** nháp · **Người viết:** Design (mock) · **PRD:** [PRD.md](PRD.md)
+> **Mã:** DE07-TN05-SRS · **Trạng thái:** đã chốt · **Người viết:** Design · **PRD:** [PRD.md](PRD.md)
 
 # UC-DE07-05 - Khám và ghi nhận kết quả
 
-> **Bản mock.** Giá trị `[giả định]` cần BA xác nhận. Nội dung y khoa chỉ minh hoạ. SRS này mô tả lịch từ `DA_GOI` tới `HOAN_THANH`; gọi số xem [SRS TN04](../TN04-nhac-lich-checkin-so-thu-tu/SRS.md).
+> Nội dung y khoa chỉ minh hoạ. SRS này mô tả lịch từ `DA_GOI` tới `HOAN_THANH`; gọi số xem [SRS TN04](../TN04-nhac-lich-checkin-so-thu-tu/SRS.md).
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 | Actor | Bác sĩ · Điều dưỡng · Kỹ thuật viên cận lâm sàng · Bệnh nhân · Chủ tài khoản · Web bác sĩ · App bệnh nhân · Máy chủ |
 | Phạm vi | Hàng đợi bác sĩ, xem trước hồ sơ, phiên khám, sinh hiệu, chẩn đoán, lời dặn, cận lâm sàng, đơn thuốc, cảnh báo, tái khám, kết thúc, sửa, kết quả trên App, quyền xem |
 | Ngoài phạm vi | Bệnh án điện tử chuẩn, kết nối máy, đơn thuốc liên thông, viện phí, khám từ xa |
-| Nền tảng | Web bác sĩ (tablet, desktop); App bệnh nhân `[giả định]` |
+| Nền tảng | Web bác sĩ (tablet, desktop); App bệnh nhân |
 
 ## 2. User Story
 
@@ -32,15 +32,15 @@
 | BR-55 | **Quyền theo vai trò**: bác sĩ xem, ghi phiên khám của lịch được phân cho mình và tiền sử của người khám đó; điều dưỡng ghi sinh hiệu, gọi số cho bác sĩ được phân; kỹ thuật viên nhập kết quả cận lâm sàng của phiếu chỉ định; lễ tân không xem nội dung khám |
 | BR-56 | **Tiền sử**: các lượt `HOAN_THANH` của người khám tại phòng khám, mới nhất trước: ngày, bác sĩ, chẩn đoán, đơn thuốc; dị ứng đã ghi |
 | BR-57 | **Bắt đầu khám**: từ `DA_GOI` → `DANG_KHAM`; ghi `started_at`. Một bác sĩ có tối đa 1 phiên `DANG_KHAM` tại một thời điểm |
-| BR-58 | **Sinh hiệu**: mạch (30–220 lần/phút), huyết áp tâm thu/tâm trương (50–260 / 30–160 mmHg), nhiệt độ (34–43 °C), cân nặng (1–300 kg), chiều cao (30–250 cm), SpO2 (50–100%). Ngoài ngưỡng tham chiếu theo tuổi → nhãn cảnh báo, vẫn cho lưu `[giả định]` |
+| BR-58 | **Sinh hiệu**: mạch (30–220 lần/phút), huyết áp tâm thu/tâm trương (50–260 / 30–160 mmHg), nhiệt độ (34–43 °C), cân nặng (1–300 kg), chiều cao (30–250 cm), SpO2 (50–100%). Ngoài ngưỡng tham chiếu theo tuổi → nhãn cảnh báo, vẫn cho lưu |
 | BR-59 | **Chẩn đoán**: ≥ 1 trước khi kết thúc; chọn từ danh mục (mã, tên) hoặc gõ tự do ≤ 200 ký tự; một chẩn đoán đánh dấu chính |
 | BR-60 | **Tự lưu nháp** mỗi 10 giây khi có thay đổi; nháp chỉ bác sĩ của phiên thấy |
-| BR-61 | **Chỉ định cận lâm sàng**: chọn ≥ 1 dịch vụ từ danh mục; lịch → `CHO_CAN_LAM_SANG`; bác sĩ hết phiên đang khám, gọi người khác được. Kết quả nhập đủ mọi chỉ định → lịch về `DA_CHECK_IN` với cờ `CO_KET_QUA_CLS`, `priority_time` = hiện tại − 30 phút để được gọi trước `[giả định]` |
+| BR-61 | **Chỉ định cận lâm sàng**: chọn ≥ 1 dịch vụ từ danh mục; lịch → `CHO_CAN_LAM_SANG`; bác sĩ hết phiên đang khám, gọi người khác được. Kết quả nhập đủ mọi chỉ định → lịch về `DA_CHECK_IN` với cờ `CO_KET_QUA_CLS`, `priority_time` = hiện tại − 30 phút để được gọi trước |
 | BR-62 | **Đơn thuốc**: mỗi dòng: thuốc (danh mục), hàm lượng, liều mỗi lần, số lần mỗi ngày (1–6), số ngày (1–90), thời điểm (sáng, trưa, chiều, tối), trước hay sau ăn, ghi chú; số lượng = liều × số lần × số ngày, làm tròn lên theo đơn vị đóng gói. Tối đa 15 dòng |
-| BR-63 | **Cảnh báo đơn**: trùng hoạt chất trong đơn; hoạt chất trùng dị ứng đã ghi của người khám. Cảnh báo phải được bác sĩ xác nhận "Đã xem" mới kết thúc được `[giả định]` |
+| BR-63 | **Cảnh báo đơn**: trùng hoạt chất trong đơn; hoạt chất trùng dị ứng đã ghi của người khám. Cảnh báo phải được bác sĩ xác nhận "Đã xem" mới kết thúc được |
 | BR-64 | **Hẹn tái khám**: 3–90 ngày, ghi chú ≤ 200 ký tự; tạo lời hẹn gắn bác sĩ và ngày gợi ý; nhắc đặt lịch trước ngày gợi ý 3 ngày nếu chưa đặt |
 | BR-65 | **Kết thúc khám**: kiểm tra BR-59, BR-63; khoá kết quả, gắn chữ ký của bác sĩ (xác nhận bằng mã PIN cá nhân) và thời điểm; lịch `HOAN_THANH`; kết quả hiện trên App ngay |
-| BR-66 | **Sửa sau kết thúc**: trong 24 giờ, bắt buộc lý do; lưu phiên bản mới, giữ phiên bản cũ; App hiện "Đã cập nhật {giờ}" và gửi thông báo. Quá 24 giờ chỉ thêm ghi chú bổ sung `[giả định]` |
+| BR-66 | **Sửa sau kết thúc**: trong 24 giờ, bắt buộc lý do; lưu phiên bản mới, giữ phiên bản cũ; App hiện "Đã cập nhật {giờ}" và gửi thông báo. Quá 24 giờ chỉ thêm ghi chú bổ sung |
 | BR-67 | **Quyền xem kết quả trên App**: người khám có tài khoản riêng (≥ 16 tuổi) và chủ tài khoản đang quản lý người khám đó; người khám ≥ 16 tuổi có thể tắt chia sẻ với chủ tài khoản. Mở màn kết quả cần xác thực lại (sinh trắc học hoặc PIN App) |
 | BR-71 | **Tải PDF kết quả** trên App: nút "Tải PDF" ở **SCR-B07** tạo file từ phiên bản mới nhất, gồm người khám, ngày, bác sĩ, chẩn đoán, lời dặn, kết quả CLS, đơn thuốc, hẹn tái khám, xác nhận của bác sĩ (tên, thời điểm) và số phiên bản. Mỗi trang có dòng "Bản sao kết quả khám cho {họ tên}". Chỉ người có quyền theo BR-67 tải được; mỗi lần tải ghi nhật ký BR-68 |
 | BR-68 | **Nhật ký truy cập**: mọi lần xem, sửa phiên khám, kết quả (nhân viên và App) ghi người, thời gian, hành động; không xoá được |
@@ -323,14 +323,14 @@ flowchart TD
 | 2 | Chẩn đoán | Card | Tên chẩn đoán dễ hiểu, mã ở dòng phụ |
 | 3 | Lời dặn | Card | |
 | 4 | Sinh hiệu, kết quả CLS | Card | Số liệu, ảnh, file |
-| 5 | Đơn thuốc | Bảng lịch uống | Cột sáng, trưa, chiều, tối; mỗi thuốc: tên, liều, trước hay sau ăn, số ngày; nút "Đặt nhắc uống thuốc" `[giả định]` |
+| 5 | Đơn thuốc | Bảng lịch uống | Cột sáng, trưa, chiều, tối; mỗi thuốc: tên, liều, trước hay sau ăn, số ngày; nút "Đặt nhắc uống thuốc" |
 | 6 | Tái khám | Card | "Tái khám sau {n} ngày, khoảng {ngày}" + Đặt lịch |
 | 7 | Chia sẻ | Setting | Người khám ≥ 16 tuổi tắt, bật chia sẻ với chủ tài khoản (BR-67) |
 | 8 | Tải PDF | Button | Tạo và lưu, chia sẻ file PDF kết quả (BR-71) |
 
 ## 8. API
 
-| **API** | **Request chính** | **Response chính** | **Timeout / retry** `[giả định]` |
+| **API** | **Request chính** | **Response chính** | **Timeout / retry** |
 | --- | --- | --- | --- |
 | \[DoctorQueueGet\] | doctor_id, session | Đang khám, hàng đợi, chờ CLS, đã khám | 3s / 1 lần |
 | \[PatientPreview\] | appointment_id | Lý do, ảnh, tiền sử, dị ứng, sinh hiệu; ghi nhật ký BR-68 | 3s / 1 lần |
@@ -400,7 +400,7 @@ sequenceDiagram
 
 ## 10. Yêu cầu phi chức năng
 
-| **Mục** | **Yêu cầu** `[giả định]` |
+| **Mục** | **Yêu cầu** |
 | --- | --- |
 | Hiệu năng | **SCR-D01** ≤ 2 giây; xem trước hồ sơ ≤ 1 giây; kết quả lên App ≤ 1 phút sau kết thúc |
 | Bảo mật dữ liệu sức khoẻ | Mã hoá khi lưu và truyền; phân quyền BR-55, BR-67; xác thực lại khi xem kết quả; thông báo đẩy không chứa chẩn đoán |

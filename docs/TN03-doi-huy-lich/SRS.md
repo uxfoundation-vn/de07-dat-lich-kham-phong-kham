@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN03-SRS · **Trạng thái:** nháp · **Người viết:** Design (mock) · **PRD:** [PRD.md](PRD.md)
+> **Mã:** DE07-TN03-SRS · **Trạng thái:** đã chốt · **Người viết:** Design · **PRD:** [PRD.md](PRD.md)
 
 # UC-DE07-03 - Đổi và huỷ lịch
 
-> **Bản mock.** Giá trị `[giả định]` cần BA xác nhận. Giữ chỗ dùng lại cơ chế ở [SRS TN02](../TN02-dat-lich/SRS.md); lịch cần xử lý sinh ra ở [SRS TN01](../TN01-lich-lam-viec-khung-gio/SRS.md).
+> Giữ chỗ dùng lại cơ chế ở [SRS TN02](../TN02-dat-lich/SRS.md); lịch cần xử lý sinh ra ở [SRS TN01](../TN01-lich-lam-viec-khung-gio/SRS.md).
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 | Actor | Bệnh nhân · Lễ tân · Quản trị · App bệnh nhân · Web lễ tân · Máy chủ · Dịch vụ SMS |
 | Phạm vi | Lịch hẹn của tôi, đổi lịch an toàn, huỷ có lý do, chính sách hạn, đổi hộ, huỷ hộ, lô cần xử lý, chuyển và huỷ hàng loạt, lịch sử thay đổi |
 | Ngoài phạm vi | Phí huỷ, danh sách chờ, chuyển cho người khám khác, đổi chuyên khoa |
-| Nền tảng | App bệnh nhân; Web lễ tân `[giả định]` |
+| Nền tảng | App bệnh nhân; Web lễ tân |
 
 ## 2. User Story
 
@@ -28,13 +28,13 @@
 
 | **Mã** | **Quy tắc** |
 | --- | --- |
-| BR-27 | **Hạn tự phục vụ**: bệnh nhân đổi, huỷ trên App khi `start_at − hiện tại ≥ 2 giờ` và lịch `DA_XAC_NHAN` `[giả định]` |
+| BR-27 | **Hạn tự phục vụ**: bệnh nhân đổi, huỷ trên App khi `start_at − hiện tại ≥ 2 giờ` và lịch `DA_XAC_NHAN` |
 | BR-28 | **Số lần đổi** tối đa 2 mỗi lịch hẹn (tính cả đổi hộ); đếm trong `reschedule_count` |
 | BR-29 | **Phạm vi đổi**: cùng chuyên khoa, cùng người khám; khung trong cửa sổ mở đặt (BR-07); quota áp dụng như đặt mới (BR-13 với App, quota quầy với lễ tân) |
 | BR-30 | **Đổi an toàn**: giữ chỗ khung mới theo BR-17 (không thả lịch cũ). Xác nhận đổi trong một giao dịch: chuyển lịch sang khung mới, giảm đếm của khung cũ, giữ nguyên mã lịch hẹn, cấp QR mới, `reschedule_count + 1` |
 | BR-31 | **Giới hạn khi đổi**: bỏ qua lịch đang đổi khi kiểm tra BR-21 |
 | BR-32 | **Huỷ**: bắt buộc lý do (Bận việc, Đã khỏi, Đặt nhầm, Khám nơi khác, Khác + ghi chú); lịch `DA_HUY`, khung giảm đếm ngay; ghi `cancelled_by` (BENH_NHAN, LE_TAN, PHONG_KHAM) |
-| BR-33 | **Sau hạn** trên App: ẩn Đổi, Huỷ; hiện hotline và "Báo không đến được" → lịch `DA_HUY` lý do "Báo muộn", vẫn trả chỗ `[giả định]` |
+| BR-33 | **Sau hạn** trên App: ẩn Đổi, Huỷ; hiện hotline và "Báo không đến được" → lịch `DA_HUY` lý do "Báo muộn", vẫn trả chỗ |
 | BR-34 | **Lễ tân đổi, huỷ hộ** được mọi lúc trước khi check-in; bắt buộc ghi kênh yêu cầu (Điện thoại, Tại quầy). Lịch `DA_CHECK_IN` **chưa được gọi** cũng đổi, huỷ hộ được trong hai trường hợp: bác sĩ hết giờ làm (TN04 UC-15 A1) hoặc bác sĩ nghỉ đột xuất (TN01 UC-04 A1). Chuyển sang bác sĩ khác trong cùng buổi → giữ `DA_CHECK_IN`, cấp số thứ tự mới của bác sĩ mới, giữ `priority_time`. Đổi sang ngày khác → lịch về `DA_XAC_NHAN` ở khung mới, số thứ tự cũ bị huỷ, không tính lượt đổi. **Lễ tân đặt lịch trước hộ** (kênh `QUAY`): tạo lịch `DA_XAC_NHAN` vào quota quầy của khung (TN01 BR-05), tăng `booked_desk`; áp dụng BR-20–22 về người khám, giới hạn lịch, lý do khám; không cần giữ chỗ tạm |
 | BR-35 | **Lô cần xử lý**: tạo từ BR-09, BR-12 (TN01); gồm các lịch `DA_XAC_NHAN` và lịch `DA_CHECK_IN` chưa được gọi trong khung bị khoá; lịch trong lô có cờ `CAN_XU_LY` và hiện cảnh báo trên **SCR-L01** |
 | BR-36 | **Chuyển hàng loạt**: chọn bác sĩ thay thế cùng khoa; với từng lịch, ghép vào khung cùng `start_at` của bác sĩ đó nếu còn chỗ (dùng cả quota online và quầy); lịch không ghép được ở lại trong lô |
@@ -317,7 +317,7 @@ flowchart TD
 
 ## 8. API
 
-| **API** | **Request chính** | **Response chính** | **Timeout / retry** `[giả định]` |
+| **API** | **Request chính** | **Response chính** | **Timeout / retry** |
 | --- | --- | --- | --- |
 | \[MyAppointments\] | account_id, tab, patient_id | Lịch hẹn, quyền đổi, huỷ, lý do không được | 3s / 1 lần |
 | \[RescheduleHold\] | appointment_id, new_slot_id | hold_id, expires_at hoặc SLOT_FULL | 3s / không tự retry |
@@ -377,7 +377,7 @@ sequenceDiagram
 
 ## 10. Yêu cầu phi chức năng
 
-| **Mục** | **Yêu cầu** `[giả định]` |
+| **Mục** | **Yêu cầu** |
 | --- | --- |
 | Nhất quán | Đổi lịch là một giao dịch; không có thời điểm nào lịch hẹn mất cả chỗ cũ lẫn chỗ mới |
 | Hiệu năng | Chuyển, huỷ hàng loạt 50 lịch ≤ 10 giây; thông báo gửi ≤ 1 phút sau thao tác |

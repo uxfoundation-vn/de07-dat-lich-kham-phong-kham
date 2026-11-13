@@ -1,8 +1,8 @@
-> **Mã:** DE07-TN02-SRS · **Trạng thái:** nháp · **Người viết:** Design (mock) · **PRD:** [PRD.md](PRD.md)
+> **Mã:** DE07-TN02-SRS · **Trạng thái:** đã chốt · **Người viết:** Design · **PRD:** [PRD.md](PRD.md)
 
 # UC-DE07-02 - Bệnh nhân đặt lịch
 
-> **Bản mock.** Giá trị `[giả định]` cần BA xác nhận. Khung giờ xem [SRS TN01](../TN01-lich-lam-viec-khung-gio/SRS.md); đổi, huỷ xem [SRS TN03](../TN03-doi-huy-lich/SRS.md); check-in xem [SRS TN04](../TN04-nhac-lich-checkin-so-thu-tu/SRS.md).
+> Khung giờ xem [SRS TN01](../TN01-lich-lam-viec-khung-gio/SRS.md); đổi, huỷ xem [SRS TN03](../TN03-doi-huy-lich/SRS.md); check-in xem [SRS TN04](../TN04-nhac-lich-checkin-so-thu-tu/SRS.md).
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 | Actor | Người đặt (chủ tài khoản) · Người khám · App bệnh nhân · Máy chủ · Dịch vụ SMS |
 | Phạm vi | Chuyên khoa, gợi ý theo triệu chứng, bác sĩ, tái khám, chọn khung, giữ chỗ, hồ sơ người khám, lý do khám, xác nhận, vé khám |
 | Ngoài phạm vi | Đặt cọc, bảo hiểm, tư vấn AI, đặt xét nghiệm riêng |
-| Nền tảng | App bệnh nhân iOS / Android `[giả định]` |
+| Nền tảng | App bệnh nhân iOS / Android |
 
 ## 2. User Story
 
@@ -30,7 +30,7 @@
 | --- | --- |
 | BR-13 | **Khung đặt được trên App**: trạng thái `MO`, `booked_online < online_quota`, trong cửa sổ mở đặt (BR-07). Lễ tân đặt lịch trước hộ bệnh nhân (qua điện thoại, tại quầy) dùng quota quầy, mô tả ở SRS TN03, UC-10 (A2) |
 | BR-14 | **Gợi ý chuyên khoa**: bảng ánh xạ triệu chứng → chuyên khoa do quản trị phòng khám cấu hình (bác sĩ duyệt); chọn 1–3 triệu chứng, trả về 1–2 khoa theo số triệu chứng khớp; luôn kèm "Khám tổng quát" |
-| BR-15 | **Bác sĩ bất kỳ**: khung giờ gộp theo giờ trong một chuyên khoa; khi giữ chỗ, chọn bác sĩ có ít lịch đã đặt nhất trong buổi đó `[giả định]` |
+| BR-15 | **Bác sĩ bất kỳ**: khung giờ gộp theo giờ trong một chuyên khoa; khi giữ chỗ, chọn bác sĩ có ít lịch đã đặt nhất trong buổi đó |
 | BR-16 | **Tái khám**: hiện bác sĩ có lịch `HOAN_THANH` với người khám trong 180 ngày; bác sĩ `NGUNG` không hiện |
 | BR-17 | **Giữ chỗ tạm** (`GIU_CHO`): tăng `booked_online` của khung ngay, hết hạn 5 phút; mỗi tài khoản tối đa 1 giữ chỗ (hoặc 1 nhóm giữ chỗ theo BR-70) còn hiệu lực, giữ chỗ mới thả giữ chỗ cũ |
 | BR-18 | **Tranh chấp**: thao tác giữ chỗ là nguyên tử ở máy chủ (kiểm tra và tăng trong cùng một giao dịch); khung hết chỗ → trả lỗi `SLOT_FULL`, App gợi ý 3 khung gần nhất cùng khoa hoặc bác sĩ |
@@ -41,8 +41,8 @@
 | BR-23 | **Xác nhận**: kiểm tra giữ chỗ còn hiệu lực, BR-21; chuyển `GIU_CHO` → `DA_XAC_NHAN`; sinh mã lịch hẹn 8 ký tự và QR check-in (mã ký số, hết hạn sau ngày khám) |
 | BR-24 | **Idempotency**: xác nhận dùng hold_id làm khoá; bấm nhiều lần chỉ tạo 1 lịch hẹn |
 | BR-25 | **Thông báo xác nhận**: push cho chủ tài khoản; SMS cho số liên hệ của người khám (nếu khác số chủ tài khoản thì gửi cả hai) |
-| BR-69 | **Chống đặt ảo**: đếm số lần **không đến** (`KHONG_DEN`) và **báo muộn** (TN03 BR-33) trong 90 ngày theo người khám và theo số điện thoại liên hệ. 2 lần → khi đặt hiện cảnh báo MSG-55. Từ 3 lần → **khoá đặt online 30 ngày** cho người khám đó: App ẩn nút Xác nhận, hiện MSG-56, vẫn đặt được qua lễ tân (TN03 UC-10 A2). Ngoài ra mỗi tài khoản tối đa 5 lượt giữ chỗ mỗi giờ; vượt thì từ chối giữ chỗ trong 1 giờ `[giả định]`. Quản trị gỡ khoá thủ công được, có ghi nhật ký |
-| BR-70 | **Đặt cho nhiều người khám** trong một lượt: chọn 1–3 người khám của tài khoản. Giữ chỗ nhóm: mỗi người 1 chỗ, cùng bác sĩ, cùng khung nếu đủ chỗ, không đủ thì các khung liền kề; giữ được tất cả hoặc không giữ gì. Thời gian giữ = 5 phút + 2 phút cho mỗi người thêm. Xác nhận tạo lịch riêng cho từng người (mã, QR riêng), mỗi người kiểm tra BR-21, BR-69 riêng; người không hợp lệ bị bỏ ra kèm lý do, người còn lại vẫn đặt được `[giả định]` |
+| BR-69 | **Chống đặt ảo**: đếm số lần **không đến** (`KHONG_DEN`) và **báo muộn** (TN03 BR-33) trong 90 ngày theo người khám và theo số điện thoại liên hệ. 2 lần → khi đặt hiện cảnh báo MSG-55. Từ 3 lần → **khoá đặt online 30 ngày** cho người khám đó: App ẩn nút Xác nhận, hiện MSG-56, vẫn đặt được qua lễ tân (TN03 UC-10 A2). Ngoài ra mỗi tài khoản tối đa 5 lượt giữ chỗ mỗi giờ; vượt thì từ chối giữ chỗ trong 1 giờ. Quản trị gỡ khoá thủ công được, có ghi nhật ký |
+| BR-70 | **Đặt cho nhiều người khám** trong một lượt: chọn 1–3 người khám của tài khoản. Giữ chỗ nhóm: mỗi người 1 chỗ, cùng bác sĩ, cùng khung nếu đủ chỗ, không đủ thì các khung liền kề; giữ được tất cả hoặc không giữ gì. Thời gian giữ = 5 phút + 2 phút cho mỗi người thêm. Xác nhận tạo lịch riêng cho từng người (mã, QR riêng), mỗi người kiểm tra BR-21, BR-69 riêng; người không hợp lệ bị bỏ ra kèm lý do, người còn lại vẫn đặt được |
 | BR-26 | **Trẻ em**: người khám dưới 16 tuổi → vé khám ghi "Cần người giám hộ đi cùng" |
 
 ## 4. Trạng thái
@@ -288,7 +288,7 @@ flowchart TD
 
 ## 8. API
 
-| **API** | **Request chính** | **Response chính** | **Timeout / retry** `[giả định]` |
+| **API** | **Request chính** | **Response chính** | **Timeout / retry** |
 | --- | --- | --- | --- |
 | \[DepartmentList\] | – | Khoa, mô tả, earliest_date | 3s / 1 lần |
 | \[SymptomSuggest\] | symptom_ids | 1–2 khoa, lý do | 3s / 1 lần |
@@ -351,7 +351,7 @@ sequenceDiagram
 
 ## 10. Yêu cầu phi chức năng
 
-| **Mục** | **Yêu cầu** `[giả định]` |
+| **Mục** | **Yêu cầu** |
 | --- | --- |
 | Hiệu năng | \[SlotsGet\] ≤ 1 giây; \[SlotHold\] ≤ 500 ms (p95) kể cả giờ cao điểm 7:00 sáng |
 | Nhất quán | Không bao giờ vượt `online_quota`; giữ chỗ và xác nhận là thao tác nguyên tử |
